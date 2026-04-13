@@ -7,6 +7,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { validateEmail, validatePassword, validateUsername, sanitizeInput } from '@/app/utils/validation';
 import { ERROR_MESSAGES, THEME } from '@/app/utils/constants';
 import { signInWithGoogle } from '@/app/utils/googleAuth';
+import { checkAuthRateLimit, getRemainingTime } from '@/app/utils/rateLimiter';
 import Link from 'next/link';
 
 export function SignupForm() {
@@ -18,10 +19,19 @@ export function SignupForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [lockoutTime, setLockoutTime] = useState<number | null>(null);
+
+  const isAccountLocked = lockoutTime !== null;
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (isAccountLocked) {
+      const remaining = lockoutTime || 0;
+      setError(`Too many signup attempts. Try again in ${remaining} seconds.`);
+      return;
+    }
 
     // Validation
     if (!validateEmail(email)) {
@@ -42,6 +52,15 @@ export function SignupForm() {
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
+      return;
+    }
+
+    // Check rate limit
+    const canAttempt = await checkAuthRateLimit(email);
+    if (!canAttempt) {
+      const remaining = getRemainingTime(email);
+      setLockoutTime(remaining);
+      setError(`Too many signup attempts. Please try again in ${remaining} seconds.`);
       return;
     }
 
@@ -70,6 +89,7 @@ export function SignupForm() {
       });
 
       setSuccess(true);
+      setLockoutTime(null);
       setTimeout(() => {
         window.location.href = '/verify-email';
       }, 2000);
@@ -86,10 +106,21 @@ export function SignupForm() {
 
   const handleGoogleSignUp = async () => {
     setError('');
+    
+    // Check rate limit for Google signup
+    const canAttempt = await checkAuthRateLimit(`google:${email || 'unknown'}`);
+    if (!canAttempt) {
+      const remaining = getRemainingTime(`google:${email || 'unknown'}`);
+      setLockoutTime(remaining);
+      setError(`Too many signup attempts. Please try again in ${remaining} seconds.`);
+      return;
+    }
+
     setLoading(true);
     try {
       await signInWithGoogle();
       setSuccess(true);
+      setLockoutTime(null);
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 1500);

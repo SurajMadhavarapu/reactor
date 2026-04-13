@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Users collection - own profile access only
+    match /users/{userId} {
+      allow read: if request.auth.uid == userId || request.auth != null;
+      allow create: if request.auth.uid == userId;
+      allow update: if request.auth.uid == userId;
+      allow delete: if request.auth.uid == userId;
+    }
+
+    // Ideas collection - read for all authenticated, write for owner
+    match /ideas/{ideaId} {
+      // Read: All authenticated users can read ideas
+      allow read: if request.auth != null;
+      
+      // Create: Any authenticated user can create ideas
+      allow create: if request.auth != null &&
+                       request.resource.data.ownerId == request.auth.uid &&
+                       request.resource.data.title is string &&
+                       request.resource.data.title.size() > 0 &&
+                       request.resource.data.title.size() <= 100 &&
+                       request.resource.data.description is string &&
+                       request.resource.data.description.size() > 0 &&
+                       request.resource.data.description.size() <= 5000;
+      
+      // Update: Only owner or collaborators with appropriate role can update
+      allow update: if request.auth != null && 
+                       (resource.data.ownerId == request.auth.uid ||
+                        request.auth.uid in resource.data.collaborators[0].userId);
+      
+      // Delete: Only owner can delete
+      allow delete: if request.auth != null && 
+                       resource.data.ownerId == request.auth.uid;
+
+      // Comments subcollection - read for all authenticated, write for authenticated
+      match /comments/{commentId} {
+        allow read: if request.auth != null;
+        allow create: if request.auth != null &&
+                         request.resource.data.userId == request.auth.uid &&
+                         request.resource.data.content is string &&
+                         request.resource.data.content.size() > 0 &&
+                         request.resource.data.content.size() <= 500;
+        allow update: if request.auth != null && 
+                         resource.data.userId == request.auth.uid;
+        allow delete: if request.auth != null && 
+                         (resource.data.userId == request.auth.uid ||
+                          get(/databases/$(database)/documents/ideas/$(ideaId)).data.ownerId == request.auth.uid);
+      }
+    }
+  }
+}

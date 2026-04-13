@@ -6,6 +6,7 @@ import { auth } from '@/lib/firebase';
 import { validateEmail, sanitizeInput } from '@/app/utils/validation';
 import { ERROR_MESSAGES, THEME, RATE_LIMITS } from '@/app/utils/constants';
 import { signInWithGoogle } from '@/app/utils/googleAuth';
+import { checkAuthRateLimit, getRemainingTime } from '@/app/utils/rateLimiter';
 import Link from 'next/link';
 
 export function LoginForm() {
@@ -17,15 +18,17 @@ export function LoginForm() {
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [showResetForm, setShowResetForm] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
+  const [lockoutTime, setLockoutTime] = useState<number | null>(null);
 
-  const isAccountLocked = failedAttempts >= RATE_LIMITS.loginAttempts;
+  const isAccountLocked = lockoutTime !== null;
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
     if (isAccountLocked) {
-      setError(ERROR_MESSAGES.auth.accountLocked);
+      const remaining = lockoutTime || 0;
+      setError(`Too many failed attempts. Try again in ${remaining} seconds.`);
       return;
     }
 
@@ -34,11 +37,21 @@ export function LoginForm() {
       return;
     }
 
+    // Check rate limit
+    const canAttempt = await checkAuthRateLimit(email);
+    if (!canAttempt) {
+      const remaining = getRemainingTime(email);
+      setLockoutTime(remaining);
+      setError(`Too many login attempts. Please try again in ${remaining} seconds.`);
+      return;
+    }
+
     setLoading(true);
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setFailedAttempts(0);
+      setLockoutTime(null);
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 500);
@@ -52,10 +65,6 @@ export function LoginForm() {
         setError('Email not found. Please sign up.');
       } else {
         setError(err.message || ERROR_MESSAGES.network.error);
-      }
-
-      if (newAttempts >= RATE_LIMITS.loginAttempts) {
-        setError(ERROR_MESSAGES.auth.accountLocked);
       }
     } finally {
       setLoading(false);
