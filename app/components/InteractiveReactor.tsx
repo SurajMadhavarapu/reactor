@@ -19,9 +19,9 @@ export default function InteractiveReactor() {
       const deltaX = e.clientX - centerX;
       const deltaY = e.clientY - centerY;
 
-      // Normalize to rotation values (max 15 degrees)
-      const rotateY = (deltaX / (rect.width / 2)) * 15;
-      const rotateX = -(deltaY / (rect.height / 2)) * 15;
+      // Normalize to rotation values (max 45 degrees)
+      const rotateY = Math.max(-45, Math.min(45, (deltaX / (rect.width / 2)) * 45));
+      const rotateX = Math.max(-45, Math.min(45, -(deltaY / (rect.height / 2)) * 45));
 
       setRotation({ x: rotateX, y: rotateY });
     };
