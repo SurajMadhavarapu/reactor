@@ -6,7 +6,7 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center px-4" style={{ backgroundColor: THEME.colors.darkBg }}>
       <div className="text-center mb-12">
         <h1 className="text-6xl font-bold mb-4" style={{ color: THEME.colors.darkSteel }}>
-          ⚛️ REACTOR
+          REACTOR
         </h1>
         <p className="text-2xl mb-2" style={{ color: THEME.colors.darkSteel }}>
           Share. Collaborate. Build.

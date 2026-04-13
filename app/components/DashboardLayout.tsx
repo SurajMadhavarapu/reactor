@@ -33,11 +33,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         <div
           className="text-2xl font-bold"
           style={{
-            color: THEME.colors.gold,
+            color: THEME.colors.darkSteel,
             animation: 'pulse 2s infinite',
           }}
         >
-          ⚛️ Loading REACTOR...
+          Loading REACTOR...
         </div>
       </div>
     );
