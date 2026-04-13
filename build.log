@@ -1,0 +1,115 @@
+
+> reactor@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.2.3 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 4 errors:
+./app/page.tsx:26:23
+Expected '</', got 'ident'
+  24 |           style={{
+  25 |             backgroundColor: THEME.colors.cardBg,
+> 26 |             border: \2px solid \\,
+     |                       ^^
+  27 |           }}
+  28 |         >
+  29 |           <div className="text-3xl mb-3">≡ƒÆí</div>
+
+Parsing ecmascript source code failed
+
+
+./app/contexts/AuthContext.tsx:1:10
+You're importing a module that depends on `createContext` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { createContext, useContext, ReactNode, useState, useEffect } from 'react';
+    |          ^^^^^^^^^^^^^
+  2 | import { User as FirebaseUser } from 'firebase/auth';
+  3 | import { auth } from '@/lib/firebase';
+  4 | import { onAuthStateChanged } from 'firebase/auth';
+
+Ecmascript file had an error
+
+Import traces:
+  Server Component:
+    ./app/contexts/AuthContext.tsx
+    ./app/layout.tsx
+
+  Client Component Browser:
+    ./app/contexts/AuthContext.tsx [Client Component Browser]
+    ./app/components/DashboardLayout.tsx [Client Component Browser]
+    ./app/dashboard/page.tsx [Client Component Browser]
+    ./app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/contexts/AuthContext.tsx [Client Component SSR]
+    ./app/components/DashboardLayout.tsx [Client Component SSR]
+    ./app/dashboard/page.tsx [Client Component SSR]
+    ./app/dashboard/page.tsx [Server Component]
+
+
+./app/contexts/AuthContext.tsx:1:58
+You're importing a module that depends on `useEffect` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { createContext, useContext, ReactNode, useState, useEffect } from 'react';
+    |                                                          ^^^^^^^^^
+  2 | import { User as FirebaseUser } from 'firebase/auth';
+  3 | import { auth } from '@/lib/firebase';
+  4 | import { onAuthStateChanged } from 'firebase/auth';
+
+Ecmascript file had an error
+
+Import traces:
+  Server Component:
+    ./app/contexts/AuthContext.tsx
+    ./app/layout.tsx
+
+  Client Component Browser:
+    ./app/contexts/AuthContext.tsx [Client Component Browser]
+    ./app/components/DashboardLayout.tsx [Client Component Browser]
+    ./app/dashboard/page.tsx [Client Component Browser]
+    ./app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/contexts/AuthContext.tsx [Client Component SSR]
+    ./app/components/DashboardLayout.tsx [Client Component SSR]
+    ./app/dashboard/page.tsx [Client Component SSR]
+    ./app/dashboard/page.tsx [Server Component]
+
+
+./app/contexts/AuthContext.tsx:1:48
+You're importing a module that depends on `useState` into a React Server Component module. This API is only available in Client Components. To fix, mark the file (or its parent) with the `"use client"` directive.
+    Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+> 1 | import { createContext, useContext, ReactNode, useState, useEffect } from 'react';
+    |                                                ^^^^^^^^
+  2 | import { User as FirebaseUser } from 'firebase/auth';
+  3 | import { auth } from '@/lib/firebase';
+  4 | import { onAuthStateChanged } from 'firebase/auth';
+
+Ecmascript file had an error
+
+Import traces:
+  Server Component:
+    ./app/contexts/AuthContext.tsx
+    ./app/layout.tsx
+
+  Client Component Browser:
+    ./app/contexts/AuthContext.tsx [Client Component Browser]
+    ./app/components/DashboardLayout.tsx [Client Component Browser]
+    ./app/dashboard/page.tsx [Client Component Browser]
+    ./app/dashboard/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/contexts/AuthContext.tsx [Client Component SSR]
+    ./app/components/DashboardLayout.tsx [Client Component SSR]
+    ./app/dashboard/page.tsx [Client Component SSR]
+    ./app/dashboard/page.tsx [Server Component]
+
+
+    at <unknown> (./app/page.tsx:26:23)
+    at <unknown> (./app/contexts/AuthContext.tsx:1:10)
+    at <unknown> (./app/contexts/AuthContext.tsx:1:58)
+    at <unknown> (./app/contexts/AuthContext.tsx:1:48)
