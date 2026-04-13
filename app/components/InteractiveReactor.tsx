@@ -9,20 +9,22 @@ export default function InteractiveReactor() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-
-      const rect = containerRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      // Calculate angle from center to mouse
-      const deltaX = e.clientX - centerX;
-      const deltaY = e.clientY - centerY;
-
-      // Normalize to rotation values (max 45 degrees)
-      const rotateY = Math.max(-45, Math.min(45, (deltaX / (rect.width / 2)) * 45));
-      const rotateX = Math.max(-45, Math.min(45, -(deltaY / (rect.height / 2)) * 45));
-
+      // Calculate rotation based on entire viewport, not just container
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+      
+      // Calculate normalized position (0 to 1, where 0.5 is center)
+      const normalizedX = e.clientX / screenWidth;
+      const normalizedY = e.clientY / screenHeight;
+      
+      // Convert to range of -1 to 1 (center at 0)
+      const centerX = normalizedX - 0.5;
+      const centerY = normalizedY - 0.5;
+      
+      // Max rotation is 45 degrees at edges
+      const rotateY = centerX * 2 * 45; // -45 to +45
+      const rotateX = -centerY * 2 * 45; // -45 to +45
+      
       setRotation({ x: rotateX, y: rotateY });
     };
 
