@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { THEME } from "@/app/utils/constants";
+import InteractiveReactor from "@/app/components/InteractiveReactor";
 
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-4" style={{ backgroundColor: THEME.colors.darkBg }}>
       <div className="text-center mb-12">
-        <h1 className="text-6xl font-bold mb-4" style={{ color: THEME.colors.darkSteel }}>
-          REACTOR
-        </h1>
+        <InteractiveReactor />
         <p className="text-2xl mb-2" style={{ color: THEME.colors.darkSteel }}>
           Share. Collaborate. Build.
         </p>
