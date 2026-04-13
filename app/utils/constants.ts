@@ -1,4 +1,4 @@
-// Iron Man Theme Colors
+// Iron Man Theme Colors with Gradients
 export const THEME = {
   colors: {
     gold: '#FFD700',
@@ -13,6 +13,18 @@ export const THEME = {
     error: '#DC3545',
     warning: '#FFC107',
   },
+  gradients: {
+    hero: 'linear-gradient(135deg, #FFD700 0%, #FF4500 50%, #A91C0A 100%)',
+    card: 'linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 69, 0, 0.08) 50%, rgba(169, 28, 10, 0.08) 100%)',
+    cardHover: 'linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 69, 0, 0.12) 50%, rgba(169, 28, 10, 0.12) 100%)',
+    button: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+    buttonHover: 'linear-gradient(135deg, #FFC700 0%, #FF8C00 100%)',
+    bgGradient: 'linear-gradient(180deg, #0F1419 0%, #1A1F2E 50%, #0a0e1a 100%)',
+    accentGradient: 'linear-gradient(135deg, #FF4500 0%, #FFD700 100%)',
+    progressGradient: 'linear-gradient(90deg, #FFD700 0%, #FF4500 50%, #A91C0A 100%)',
+    textGradient: 'linear-gradient(135deg, #FFD700 0%, #FF4500 100%)',
+    bordergradient: 'linear-gradient(135deg, #FFD700 0%, #FF4500 100%)',
+  },
   transitions: {
     smooth: '0.3s ease-in-out',
     fast: '0.15s ease-in-out',
@@ -22,6 +34,7 @@ export const THEME = {
     glow: '0 0 20px rgba(255, 215, 0, 0.3)',
     heavyGlow: '0 0 40px rgba(255, 215, 0, 0.5)',
     card: '0 4px 20px rgba(0, 0, 0, 0.3)',
+    goldShadow: '0 0 30px rgba(255, 215, 0, 0.2)',
   },
 };
 

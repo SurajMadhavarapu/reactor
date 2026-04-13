@@ -1,0 +1,220 @@
+import { db } from '@/lib/firebase';
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  serverTimestamp,
+  increment,
+  arrayUnion,
+  arrayRemove,
+} from 'firebase/firestore';
+import { Idea, Comment, Collaborator } from '@/app/types';
+
+// CREATE IDEA
+export async function createIdea(
+  userId: string,
+  userName: string,
+  title: string,
+  description: string,
+  category: string
+) {
+  try {
+    const ideasRef = collection(db, 'ideas');
+    const docRef = await addDoc(ideasRef, {
+      title,
+      description,
+      category,
+      ownerId: userId,
+      ownerName: userName,
+      progress: 'concept',
+      upvotes: 0,
+      upvoters: [],
+      commentCount: 0,
+      collaborators: [
+        {
+          userId,
+          username: userName,
+          role: 'owner',
+          joinedAt: serverTimestamp(),
+        },
+      ],
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+      progressHistory: [],
+    });
+    return docRef.id;
+  } catch (error) {
+    console.error('Error creating idea:', error);
+    throw error;
+  }
+}
+
+// GET ALL IDEAS
+export async function getAllIdeas() {
+  try {
+    const ideasRef = collection(db, 'ideas');
+    const q = query(ideasRef);
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as any[];
+  } catch (error) {
+    console.error('Error fetching ideas:', error);
+    throw error;
+  }
+}
+
+// GET SINGLE IDEA
+export async function getIdeaById(ideaId: string) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    const snapshot = await getDoc(ideaRef);
+    if (!snapshot.exists()) {
+      throw new Error('Idea not found');
+    }
+    return { id: snapshot.id, ...snapshot.data() } as any;
+  } catch (error) {
+    console.error('Error fetching idea:', error);
+    throw error;
+  }
+}
+
+// UPDATE IDEA PROGRESS
+export async function updateIdeaProgress(
+  ideaId: string,
+  newProgress: string,
+  userId: string,
+  userName: string
+) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    await updateDoc(ideaRef, {
+      progress: newProgress,
+      updatedAt: serverTimestamp(),
+      progressHistory: arrayUnion({
+        userId,
+        userName,
+        toStage: newProgress,
+        timestamp: serverTimestamp(),
+      }),
+    });
+  } catch (error) {
+    console.error('Error updating progress:', error);
+    throw error;
+  }
+}
+
+// UPVOTE IDEA
+export async function upvoteIdea(ideaId: string, userId: string) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    await updateDoc(ideaRef, {
+      upvotes: increment(1),
+      upvoters: arrayUnion(userId),
+    });
+  } catch (error) {
+    console.error('Error upvoting:', error);
+    throw error;
+  }
+}
+
+// REMOVE UPVOTE
+export async function removeUpvote(ideaId: string, userId: string) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    await updateDoc(ideaRef, {
+      upvotes: increment(-1),
+      upvoters: arrayRemove(userId),
+    });
+  } catch (error) {
+    console.error('Error removing upvote:', error);
+    throw error;
+  }
+}
+
+// ADD COMMENT
+export async function addComment(
+  ideaId: string,
+  userId: string,
+  userName: string,
+  content: string
+) {
+  try {
+    const commentsRef = collection(db, 'ideas', ideaId, 'comments');
+    const docRef = await addDoc(commentsRef, {
+      userId,
+      userName,
+      content,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+
+    // Update comment count
+    const ideaRef = doc(db, 'ideas', ideaId);
+    await updateDoc(ideaRef, {
+      commentCount: increment(1),
+    });
+
+    return docRef.id;
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    throw error;
+  }
+}
+
+// GET COMMENTS
+export async function getComments(ideaId: string) {
+  try {
+    const commentsRef = collection(db, 'ideas', ideaId, 'comments');
+    const q = query(commentsRef);
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as any[];
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    throw error;
+  }
+}
+
+// DELETE IDEA
+export async function deleteIdea(ideaId: string) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    await deleteDoc(ideaRef);
+  } catch (error) {
+    console.error('Error deleting idea:', error);
+    throw error;
+  }
+}
+
+// ADD COLLABORATOR
+export async function addCollaborator(
+  ideaId: string,
+  userId: string,
+  userName: string,
+  role: string = 'collaborator'
+) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    await updateDoc(ideaRef, {
+      collaborators: arrayUnion({
+        userId,
+        username: userName,
+        role,
+        joinedAt: serverTimestamp(),
+      }),
+    });
+  } catch (error) {
+    console.error('Error adding collaborator:', error);
+    throw error;
+  }
+}
