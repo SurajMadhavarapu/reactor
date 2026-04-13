@@ -5,7 +5,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/app/contexts/AuthContext";
 import { THEME } from "@/app/utils/constants";
-import CornerEmojis from "@/app/components/CornerEmojis";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +32,6 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col" style={{ backgroundColor: THEME.colors.darkBg, color: THEME.colors.white }}>
         <AuthProvider>
-          <CornerEmojis />
           {children}
         </AuthProvider>
       </body>
