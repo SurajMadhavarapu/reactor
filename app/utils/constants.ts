@@ -1,40 +1,40 @@
-// Iron Man Theme Colors with Gradients
+// Cream & White Clean Theme
 export const THEME = {
   colors: {
-    gold: '#FFD700',
-    deepRed: '#A91C0A',
-    darkSteel: '#2C3E50',
-    brightOrange: '#FF4500',
-    white: '#FFFFFF',
-    darkBg: '#0F1419',
-    cardBg: '#1A1F2E',
-    borderColor: '#FFD700',
-    success: '#28A745',
-    error: '#DC3545',
-    warning: '#FFC107',
+    gold: '#F5F5F0',           // Cream/off-white
+    deepRed: '#E8E8E3',        // Light cream
+    darkSteel: '#2C2C2C',      // Dark text
+    brightOrange: '#333333',   // Dark gray text
+    white: '#FFFFFF',          // Pure white
+    darkBg: '#FAF9F6',         // Cream background
+    cardBg: '#FFFFFF',         // White cards
+    borderColor: '#E0DFD9',    // Light gray border
+    success: '#4CAF50',
+    error: '#F44336',
+    warning: '#FF9800',
   },
   gradients: {
-    hero: 'linear-gradient(135deg, #FFD700 0%, #FF4500 50%, #A91C0A 100%)',
-    card: 'linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 69, 0, 0.08) 50%, rgba(169, 28, 10, 0.08) 100%)',
-    cardHover: 'linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 69, 0, 0.12) 50%, rgba(169, 28, 10, 0.12) 100%)',
-    button: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-    buttonHover: 'linear-gradient(135deg, #FFC700 0%, #FF8C00 100%)',
-    bgGradient: 'linear-gradient(180deg, #0F1419 0%, #1A1F2E 50%, #0a0e1a 100%)',
-    accentGradient: 'linear-gradient(135deg, #FF4500 0%, #FFD700 100%)',
-    progressGradient: 'linear-gradient(90deg, #FFD700 0%, #FF4500 50%, #A91C0A 100%)',
-    textGradient: 'linear-gradient(135deg, #FFD700 0%, #FF4500 100%)',
-    bordergradient: 'linear-gradient(135deg, #FFD700 0%, #FF4500 100%)',
+    hero: 'linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 100%)',
+    card: 'linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(250, 249, 246, 0.5) 100%)',
+    cardHover: 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 240, 235, 0.8) 100%)',
+    button: 'linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 100%)',
+    buttonHover: 'linear-gradient(135deg, #1A1A1A 0%, #333333 100%)',
+    bgGradient: 'linear-gradient(180deg, #FAF9F6 0%, #F5F5F0 100%)',
+    accentGradient: 'linear-gradient(135deg, #2C2C2C 0%, #555555 100%)',
+    progressGradient: 'linear-gradient(90deg, #333333 0%, #555555 100%)',
+    textGradient: 'linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 100%)',
+    bordergradient: 'linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 100%)',
+  },
+  shadows: {
+    glow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+    heavyGlow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+    card: '0 2px 8px rgba(0, 0, 0, 0.06)',
+    goldShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
   },
   transitions: {
     smooth: '0.3s ease-in-out',
     fast: '0.15s ease-in-out',
     slow: '0.6s ease-in-out',
-  },
-  shadows: {
-    glow: '0 0 20px rgba(255, 215, 0, 0.3)',
-    heavyGlow: '0 0 40px rgba(255, 215, 0, 0.5)',
-    card: '0 4px 20px rgba(0, 0, 0, 0.3)',
-    goldShadow: '0 0 30px rgba(255, 215, 0, 0.2)',
   },
 };
 

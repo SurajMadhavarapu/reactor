@@ -91,10 +91,10 @@ export function LoginForm() {
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: THEME.colors.darkBg }}>
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-2" style={{ color: THEME.colors.gold }}>
+          <h1 className="text-4xl font-bold mb-2" style={{ color: THEME.colors.darkSteel }}>
             ⚛️ REACTOR
           </h1>
-          <p style={{ color: THEME.colors.white }}>Welcome back</p>
+          <p style={{ color: THEME.colors.darkSteel }}>Welcome back</p>
         </div>
 
         {!showResetForm ? (
@@ -102,15 +102,15 @@ export function LoginForm() {
             onSubmit={handleLogin}
             className="p-8 rounded-lg"
             style={{
-              backgroundColor: THEME.colors.cardBg,
-              border: `2px solid ${THEME.colors.gold}`,
+              backgroundColor: THEME.colors.white,
+              boxShadow: THEME.shadows.heavyGlow,
             }}
           >
             {error && (
               <div
                 className="mb-4 p-3 rounded text-sm"
                 style={{
-                  backgroundColor: `${THEME.colors.error}20`,
+                  backgroundColor: '#FFEBEE',
                   color: THEME.colors.error,
                   borderLeft: `3px solid ${THEME.colors.error}`,
                 }}
@@ -132,15 +132,19 @@ export function LoginForm() {
             )}
 
             <div className="mb-4">
-              <label className="block text-sm mb-2" style={{ color: THEME.colors.gold }}>
+              <label className="block text-sm mb-2" style={{ color: THEME.colors.darkSteel }}>
                 Email
               </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 rounded border-2 bg-transparent text-white focus:outline-none transition"
-                style={{ borderColor: THEME.colors.gold }}
+                className="w-full px-4 py-2 rounded text-gray-800 focus:outline-none transition"
+                style={{
+                  borderColor: THEME.colors.borderColor,
+                  boxShadow: THEME.shadows.glow,
+                  border: `1px solid ${THEME.colors.borderColor}`,
+                }}
                 placeholder="you@example.com"
                 disabled={isAccountLocked}
                 required
@@ -148,15 +152,19 @@ export function LoginForm() {
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm mb-2" style={{ color: THEME.colors.gold }}>
+              <label className="block text-sm mb-2" style={{ color: THEME.colors.darkSteel }}>
                 Password
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 rounded border-2 bg-transparent text-white focus:outline-none transition"
-                style={{ borderColor: THEME.colors.gold }}
+                className="w-full px-4 py-2 rounded text-gray-800 focus:outline-none transition"
+                style={{
+                  borderColor: THEME.colors.borderColor,
+                  boxShadow: THEME.shadows.glow,
+                  border: `1px solid ${THEME.colors.borderColor}`,
+                }}
                 placeholder="••••••••"
                 disabled={isAccountLocked}
                 required
@@ -168,8 +176,8 @@ export function LoginForm() {
               disabled={loading || isAccountLocked}
               className="w-full py-3 rounded font-bold transition"
               style={{
-                backgroundColor: THEME.colors.gold,
-                color: THEME.colors.darkSteel,
+                backgroundColor: THEME.colors.darkSteel,
+                color: THEME.colors.white,
                 opacity: loading || isAccountLocked ? 0.6 : 1,
               }}
             >
@@ -185,9 +193,9 @@ export function LoginForm() {
               Forgot Password?
             </button>
 
-            <p className="mt-4 text-center" style={{ color: THEME.colors.white }}>
+            <p className="mt-4 text-center" style={{ color: THEME.colors.darkSteel }}>
               Don't have an account?{' '}
-              <Link href="/signup" style={{ color: THEME.colors.gold }} className="font-bold hover:underline">
+              <Link href="/signup" style={{ color: THEME.colors.brightOrange }} className="font-bold hover:underline">
                 Sign Up
               </Link>
             </p>
@@ -197,11 +205,11 @@ export function LoginForm() {
             onSubmit={handlePasswordReset}
             className="p-8 rounded-lg"
             style={{
-              backgroundColor: THEME.colors.cardBg,
-              border: `2px solid ${THEME.colors.gold}`,
+              backgroundColor: THEME.colors.white,
+              boxShadow: THEME.shadows.heavyGlow,
             }}
           >
-            <h2 className="text-xl font-bold mb-4" style={{ color: THEME.colors.gold }}>
+            <h2 className="text-xl font-bold mb-4" style={{ color: THEME.colors.darkSteel }}>
               Reset Password
             </h2>
 
@@ -209,7 +217,7 @@ export function LoginForm() {
               <div
                 className="mb-4 p-3 rounded text-sm"
                 style={{
-                  backgroundColor: `${THEME.colors.error}20`,
+                  backgroundColor: '#FFEBEE',
                   color: THEME.colors.error,
                 }}
               >
@@ -221,7 +229,7 @@ export function LoginForm() {
               <div
                 className="mb-4 p-3 rounded text-sm"
                 style={{
-                  backgroundColor: `${THEME.colors.success}20`,
+                  backgroundColor: '#E8F5E9',
                   color: THEME.colors.success,
                 }}
               >
@@ -230,15 +238,19 @@ export function LoginForm() {
             )}
 
             <div className="mb-6">
-              <label className="block text-sm mb-2" style={{ color: THEME.colors.gold }}>
+              <label className="block text-sm mb-2" style={{ color: THEME.colors.darkSteel }}>
                 Email
               </label>
               <input
                 type="email"
                 value={resetEmail}
                 onChange={(e) => setResetEmail(e.target.value)}
-                className="w-full px-4 py-2 rounded border-2 bg-transparent text-white focus:outline-none transition"
-                style={{ borderColor: THEME.colors.gold }}
+                className="w-full px-4 py-2 rounded text-gray-800 focus:outline-none transition"
+                style={{
+                  borderColor: THEME.colors.borderColor,
+                  boxShadow: THEME.shadows.glow,
+                  border: `1px solid ${THEME.colors.borderColor}`,
+                }}
                 placeholder="you@example.com"
                 required
               />
@@ -249,8 +261,8 @@ export function LoginForm() {
               disabled={loading}
               className="w-full py-3 rounded font-bold transition"
               style={{
-                backgroundColor: THEME.colors.gold,
-                color: THEME.colors.darkSteel,
+                backgroundColor: THEME.colors.darkSteel,
+                color: THEME.colors.white,
                 opacity: loading ? 0.6 : 1,
               }}
             >

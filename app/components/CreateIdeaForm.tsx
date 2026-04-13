@@ -66,7 +66,7 @@ export function CreateIdeaForm() {
   };
 
   return (
-    <div style={{ background: THEME.gradients.bgGradient }} className="min-h-screen p-6">
+    <div style={{ backgroundColor: THEME.colors.darkBg }} className="min-h-screen p-6">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <motion.div
@@ -83,16 +83,11 @@ export function CreateIdeaForm() {
           </Link>
           <h1
             className="text-5xl font-bold mb-3"
-            style={{
-              background: THEME.gradients.hero,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
+            style={{ color: THEME.colors.darkSteel }}
           >
             💡 Launch Your Idea
           </h1>
-          <p style={{ color: THEME.colors.white }} className="opacity-80">
+          <p style={{ color: THEME.colors.brightOrange }} className="opacity-80">
             Share your startup vision with the community
           </p>
         </motion.div>
@@ -100,11 +95,10 @@ export function CreateIdeaForm() {
         {/* Form */}
         <motion.form
           onSubmit={handleSubmit}
-          className="p-8 rounded-xl backdrop-blur-sm"
+          className="p-8 rounded-xl"
           style={{
-            background: THEME.gradients.card,
-            border: `3px solid ${THEME.colors.gold}`,
-            boxShadow: THEME.shadows.goldShadow,
+            backgroundColor: THEME.colors.white,
+            boxShadow: THEME.shadows.heavyGlow,
           }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -112,9 +106,9 @@ export function CreateIdeaForm() {
         >
           {error && (
             <motion.div
-              className="mb-6 p-4 rounded-lg text-sm backdrop-blur-sm"
+              className="mb-6 p-4 rounded-lg text-sm"
               style={{
-                background: `linear-gradient(135deg, rgba(220, 53, 69, 0.15) 0%, rgba(220, 53, 69, 0.05) 100%)`,
+                backgroundColor: '#FFEBEE',
                 color: THEME.colors.error,
                 border: `2px solid ${THEME.colors.error}`,
               }}
@@ -127,9 +121,9 @@ export function CreateIdeaForm() {
 
           {success && (
             <motion.div
-              className="mb-6 p-4 rounded-lg text-sm backdrop-blur-sm"
+              className="mb-6 p-4 rounded-lg text-sm"
               style={{
-                background: `linear-gradient(135deg, rgba(40, 167, 69, 0.15) 0%, rgba(40, 167, 69, 0.05) 100%)`,
+                backgroundColor: '#E8F5E9',
                 color: THEME.colors.success,
                 border: `2px solid ${THEME.colors.success}`,
               }}
@@ -144,12 +138,7 @@ export function CreateIdeaForm() {
           <motion.div className="mb-7" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
             <label
               className="block text-sm font-semibold mb-3"
-              style={{
-                background: THEME.gradients.accentGradient,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+              style={{ color: THEME.colors.darkSteel }}
             >
               Idea Title *
             </label>
@@ -157,10 +146,11 @@ export function CreateIdeaForm() {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-transparent text-white focus:outline-none transition backdrop-blur-sm"
+              className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition"
               style={{
-                border: `2px solid ${THEME.colors.gold}`,
-                boxShadow: `inset 0 0 10px ${THEME.colors.gold}20`,
+                backgroundColor: THEME.colors.darkBg,
+                boxShadow: THEME.shadows.glow,
+                border: `1px solid ${THEME.colors.borderColor}`,
               }}
               placeholder="e.g., AI-powered meal planning app"
               maxLength={VALIDATION.idea.titleMaxLength}
@@ -175,22 +165,18 @@ export function CreateIdeaForm() {
           <motion.div className="mb-7" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
             <label
               className="block text-sm font-semibold mb-3"
-              style={{
-                background: THEME.gradients.accentGradient,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+              style={{ color: THEME.colors.darkSteel }}
             >
               Description *
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-transparent text-white focus:outline-none transition resize-none backdrop-blur-sm"
+              className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition resize-none"
               style={{
-                border: `2px solid ${THEME.colors.gold}`,
-                boxShadow: `inset 0 0 10px ${THEME.colors.gold}20`,
+                backgroundColor: THEME.colors.darkBg,
+                boxShadow: THEME.shadows.glow,
+                border: `1px solid ${THEME.colors.borderColor}`,
               }}
               placeholder="Describe your startup idea: problem, solution, target market..."
               rows={6}
@@ -206,61 +192,33 @@ export function CreateIdeaForm() {
           <motion.div className="mb-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
             <label
               className="block text-sm font-semibold mb-3"
-              style={{
-                background: THEME.gradients.accentGradient,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+              style={{ color: THEME.colors.darkSteel }}
             >
               Category *
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-transparent text-white focus:outline-none transition backdrop-blur-sm"
+              className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition"
               style={{
-                border: `2px solid ${THEME.colors.gold}`,
-                boxShadow: `inset 0 0 10px ${THEME.colors.gold}20`,
+                backgroundColor: THEME.colors.darkBg,
+                boxShadow: THEME.shadows.glow,
+                border: `1px solid ${THEME.colors.borderColor}`,
               }}
               required
             >
-              <option value="" style={{ color: THEME.colors.darkSteel }}>
-                Select a category...
-              </option>
-              <option value="SaaS" style={{ color: THEME.colors.darkSteel }}>
-                SaaS
-              </option>
-              <option value="Mobile App" style={{ color: THEME.colors.darkSteel }}>
-                Mobile App
-              </option>
-              <option value="Web App" style={{ color: THEME.colors.darkSteel }}>
-                Web App
-              </option>
-              <option value="AI/ML" style={{ color: THEME.colors.darkSteel }}>
-                AI/ML
-              </option>
-              <option value="Hardware" style={{ color: THEME.colors.darkSteel }}>
-                Hardware
-              </option>
-              <option value="E-commerce" style={{ color: THEME.colors.darkSteel }}>
-                E-commerce
-              </option>
-              <option value="Social" style={{ color: THEME.colors.darkSteel }}>
-                Social
-              </option>
-              <option value="Finance" style={{ color: THEME.colors.darkSteel }}>
-                Finance
-              </option>
-              <option value="Health" style={{ color: THEME.colors.darkSteel }}>
-                Health
-              </option>
-              <option value="Education" style={{ color: THEME.colors.darkSteel }}>
-                Education
-              </option>
-              <option value="Other" style={{ color: THEME.colors.darkSteel }}>
-                Other
-              </option>
+              <option value="">Select a category...</option>
+              <option value="SaaS">SaaS</option>
+              <option value="Mobile App">Mobile App</option>
+              <option value="Web App">Web App</option>
+              <option value="AI/ML">AI/ML</option>
+              <option value="Hardware">Hardware</option>
+              <option value="E-commerce">E-commerce</option>
+              <option value="Social">Social</option>
+              <option value="Finance">Finance</option>
+              <option value="Health">Health</option>
+              <option value="Education">Education</option>
+              <option value="Other">Other</option>
             </select>
           </motion.div>
 
@@ -268,10 +226,10 @@ export function CreateIdeaForm() {
           <motion.button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-lg font-bold text-lg transition shadow-lg"
+            className="w-full py-4 rounded-lg font-bold text-lg transition"
             style={{
               background: THEME.gradients.button,
-              color: THEME.colors.darkSteel,
+              color: THEME.colors.white,
               opacity: loading ? 0.6 : 1,
               boxShadow: THEME.shadows.heavyGlow,
             }}

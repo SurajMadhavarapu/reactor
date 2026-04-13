@@ -82,9 +82,9 @@ export default function IdeasPage() {
 
   return (
     <DashboardLayout>
-      <div style={{ background: THEME.gradients.bgGradient }} className="min-h-screen p-6">
+      <div style={{ backgroundColor: THEME.colors.darkBg }} className="min-h-screen p-6">
         <div className="max-w-6xl mx-auto">
-          {/* Header with Gradient */}
+          {/* Header */}
           <motion.div
             className="mb-10"
             initial={{ opacity: 0, y: -20 }}
@@ -95,12 +95,7 @@ export default function IdeasPage() {
               <div>
                 <h1
                   className="text-5xl font-bold mb-2"
-                  style={{
-                    background: THEME.gradients.hero,
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}
+                  style={{ color: THEME.colors.darkSteel }}
                 >
                   💡 Startup Ideas
                 </h1>
@@ -112,22 +107,22 @@ export default function IdeasPage() {
                 <motion.button
                   whileHover={{ scale: 1.08, boxShadow: THEME.shadows.heavyGlow }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-3 rounded-lg font-bold transition shadow-lg"
+                  className="px-8 py-3 rounded-lg font-bold transition"
                   style={{
-                    background: THEME.gradients.button,
-                    color: THEME.colors.darkSteel,
+                    backgroundColor: THEME.colors.darkSteel,
+                    color: THEME.colors.white,
                   }}
                 >
                   ✨ New Idea
                 </motion.button>
               </Link>
             </div>
-            <p style={{ color: THEME.colors.white }} className="text-sm opacity-80">
+            <p style={{ color: THEME.colors.darkSteel }} className="text-sm opacity-80">
               Discover and collaborate on innovative startup concepts from our community
             </p>
           </motion.div>
 
-          {/* Search & Filter with Gradient Borders */}
+          {/* Search & Filter */}
           <motion.div
             className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4"
             initial={{ opacity: 0 }}
@@ -140,10 +135,9 @@ export default function IdeasPage() {
                 placeholder="🔍 Search ideas..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-transparent text-white focus:outline-none transition backdrop-blur-sm"
+                className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition"
                 style={{
-                  background: THEME.gradients.card,
-                  border: `2px solid ${THEME.colors.gold}`,
+                  backgroundColor: THEME.colors.white,
                   boxShadow: THEME.shadows.glow,
                 }}
               />
@@ -151,10 +145,9 @@ export default function IdeasPage() {
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="px-4 py-3 rounded-lg bg-transparent text-white focus:outline-none transition backdrop-blur-sm"
+              className="px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition"
               style={{
-                background: THEME.gradients.card,
-                border: `2px solid ${THEME.colors.gold}`,
+                backgroundColor: THEME.colors.white,
                 boxShadow: THEME.shadows.glow,
               }}
             >
@@ -176,9 +169,9 @@ export default function IdeasPage() {
           {/* Error Message */}
           {error && (
             <motion.div
-              className="mb-6 p-4 rounded-lg text-sm backdrop-blur-sm"
+              className="mb-6 p-4 rounded-lg text-sm"
               style={{
-                background: `linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(220, 53, 69, 0.05) 100%)`,
+                backgroundColor: '#FFEBEE',
                 color: THEME.colors.error,
                 border: `2px solid ${THEME.colors.error}`,
               }}
@@ -219,10 +212,11 @@ export default function IdeasPage() {
             </motion.div>
           ) : (
             <motion.div
-              className="text-center py-16 rounded-xl backdrop-blur-sm"
+              className="text-center py-16 rounded-xl"
               style={{
-                background: THEME.gradients.card,
-                border: `3px dashed ${THEME.colors.gold}`,
+                backgroundColor: THEME.colors.white,
+                border: `3px dashed ${THEME.colors.borderColor}`,
+                boxShadow: THEME.shadows.heavyGlow,
               }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -230,15 +224,12 @@ export default function IdeasPage() {
               <p
                 className="text-2xl mb-4 font-bold"
                 style={{
-                  background: THEME.gradients.hero,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                  color: THEME.colors.darkSteel,
                 }}
               >
                 {searchTerm || filterCategory ? '🔍 No ideas match your search' : '💡 No ideas yet'}
               </p>
-              <p style={{ color: THEME.colors.white }} className="text-sm mb-8 opacity-70">
+              <p style={{ color: THEME.colors.brightOrange }} className="text-sm mb-8 opacity-70">
                 {searchTerm || filterCategory
                   ? 'Try adjusting your search or filter criteria'
                   : 'Be the first to share a revolutionary startup idea!'}
@@ -248,8 +239,8 @@ export default function IdeasPage() {
                   whileHover={{ scale: 1.08 }}
                   className="px-8 py-3 rounded-lg font-bold inline-block transition"
                   style={{
-                    background: THEME.gradients.button,
-                    color: THEME.colors.darkSteel,
+                    backgroundColor: THEME.colors.darkSteel,
+                    color: THEME.colors.white,
                     boxShadow: THEME.shadows.heavyGlow,
                   }}
                 >

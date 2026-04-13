@@ -36,60 +36,47 @@ export function IdeaCard({
     >
       <Link href={`/ideas/${id}`}>
         <div
-          className="p-6 rounded-xl cursor-pointer transition backdrop-blur-sm overflow-hidden relative group"
+          className="p-6 rounded-xl cursor-pointer transition overflow-hidden relative group"
           style={{
-            background: THEME.gradients.card,
-            border: `2px solid ${THEME.colors.gold}`,
-            boxShadow: THEME.shadows.goldShadow,
+            backgroundColor: THEME.colors.white,
+            boxShadow: THEME.shadows.heavyGlow,
+            border: `1px solid ${THEME.colors.borderColor}`,
           }}
         >
-          {/* Animated Background Gradient on Hover */}
-          <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{
-              background: THEME.gradients.cardHover,
-              zIndex: -1,
-            }}
-          />
-
           {/* Title */}
           <h3
-            className="text-xl font-bold mb-3 line-clamp-2 group-hover:opacity-80 transition"
+            className="text-xl font-bold mb-3 line-clamp-2"
             style={{
-              background: THEME.gradients.textGradient,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
+              color: THEME.colors.darkSteel,
             }}
           >
             {title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm mb-4 line-clamp-2 opacity-80" style={{ color: THEME.colors.white }}>
+          <p className="text-sm mb-4 line-clamp-2 opacity-70" style={{ color: THEME.colors.brightOrange }}>
             {description}
           </p>
 
-          {/* Category Badge with Gradient */}
+          {/* Category Badge */}
           <div className="mb-4">
             <span
               className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold"
               style={{
-                background: `linear-gradient(135deg, ${THEME.colors.brightOrange}30, ${THEME.colors.gold}20)`,
-                color: THEME.colors.brightOrange,
-                border: `1px solid ${THEME.colors.brightOrange}`,
+                backgroundColor: THEME.colors.darkBg,
+                color: THEME.colors.darkSteel,
               }}
             >
               {category}
             </span>
           </div>
 
-          {/* Progress Bar with Gradient */}
+          {/* Progress Bar */}
           <div className="mb-4">
             <div
               className="h-2 rounded-full overflow-hidden"
               style={{
-                background: `linear-gradient(90deg, ${THEME.colors.darkSteel}40, ${THEME.colors.darkSteel}20)`,
+                backgroundColor: THEME.colors.borderColor,
               }}
             >
               <motion.div
@@ -110,11 +97,11 @@ export function IdeaCard({
           <div
             className="flex items-center justify-between text-sm border-t pt-4"
             style={{
-              borderColor: `${THEME.colors.gold}30`,
+              borderColor: THEME.colors.borderColor,
             }}
           >
-            <span style={{ color: THEME.colors.white }}>
-              By <strong style={{ color: THEME.colors.gold }}>{ownerName}</strong>
+            <span style={{ color: THEME.colors.darkSteel }}>
+              By <strong>{ownerName}</strong>
             </span>
 
             <div className="flex gap-4">
