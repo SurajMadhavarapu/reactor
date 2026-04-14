@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '@/lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
@@ -20,6 +21,7 @@ function withTimeout<T>(promise: Promise<T>, timeoutMs: number = 10000): Promise
 }
 
 export function SignupForm() {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [displayName, setDisplayName] = useState('');
@@ -109,11 +111,9 @@ export function SignupForm() {
       setSuccess(true);
       setLockoutTime(null);
       
-      // Wait for auth state to update in AuthContext before redirecting
-      // This ensures the user is fully authenticated before navigating to dashboard
-      setTimeout(() => {
-        window.location.href = '/dashboard';
-      }, 1000);
+      // Use router.push() for client-side navigation
+      // This ensures the navigation completes before auth state updates propagate
+      router.push('/dashboard');
     } catch (err: any) {
       setLoading(false);
       if (err.code === 'auth/email-already-in-use') {
