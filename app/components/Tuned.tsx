@@ -112,6 +112,8 @@ export function Tuned() {
   }, []);
 
   const handleConnect = () => {
+    // Store the current URL so callback can redirect back
+    document.cookie = `spotify_return_url=${window.location.href}; path=/; max-age=600`;
     window.location.href = '/api/auth/spotify';
   };
 

@@ -53,10 +53,12 @@ export async function GET(request) {
 
     const tokenData = await tokenResponse.json();
 
-    // Get the referrer to redirect back to the idea page
-    // Fallback to dashboard if no referrer available
-    const referrer = request.headers.get('referer') || '/dashboard';
-    const response = NextResponse.redirect(new URL(referrer, request.url));
+    // Get return URL from cookie (set by Tuned component)
+    // Fallback to dashboard if cookie not found
+    const returnUrlCookie = request.cookies.get('spotify_return_url')?.value;
+    const returnUrl = returnUrlCookie || '/dashboard';
+    
+    const response = NextResponse.redirect(new URL(returnUrl, request.url));
     
     response.cookies.set('spotify_access_token', tokenData.access_token, {
       httpOnly: true,
@@ -75,6 +77,7 @@ export async function GET(request) {
     }
 
     response.cookies.delete('spotify_auth_state');
+    response.cookies.delete('spotify_return_url');
 
     return response;
   } catch (error) {
