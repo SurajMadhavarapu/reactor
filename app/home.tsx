@@ -7,7 +7,7 @@ export default function Home() {
       {/* Hero Section */}
       <div className="text-center mb-12">
         <h1 className="text-6xl font-bold mb-4" style={{ color: THEME.colors.gold }}>
-          ⚛️ REACTOR
+          REACTOR
         </h1>
         <p className="text-2xl mb-2" style={{ color: THEME.colors.white }}>
           Share. Collaborate. Build.

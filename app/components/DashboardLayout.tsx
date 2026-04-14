@@ -59,7 +59,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       >
         <Link href="/dashboard" className="flex items-center gap-2">
           <h1 className="text-2xl font-bold" style={{ color: THEME.colors.gold }}>
-            ⚛️ REACTOR
+            REACTOR
           </h1>
         </Link>
 
