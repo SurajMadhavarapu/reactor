@@ -228,7 +228,7 @@ export async function addCollaborator(
 }
 
 // VERIFY IDEA PIN
-export async function verifyIdeaPin(ideaId: string, userId: string, enteredPin: string) {
+export async function verifyIdeaPin(ideaId: string, userId: string, userName: string, enteredPin: string) {
   try {
     const ideaRef = doc(db, 'ideas', ideaId);
     const snapshot = await getDoc(ideaRef);
@@ -242,10 +242,28 @@ export async function verifyIdeaPin(ideaId: string, userId: string, enteredPin: 
       throw new Error('Invalid PIN');
     }
 
-    // Mark PIN as verified for this user
-    await updateDoc(ideaRef, {
-      [`pinVerified.${userId}`]: true,
-    });
+    // Check if user is already a collaborator
+    const existingCollab = idea.collaborators?.find((c: any) => c.userId === userId);
+    
+    // If not already a collaborator, add them
+    if (!existingCollab) {
+      const newCollaborator = {
+        userId,
+        username: userName,
+        role: 'collaborator',
+        joinedAt: new Date(),
+      };
+
+      await updateDoc(ideaRef, {
+        [`pinVerified.${userId}`]: true,
+        collaborators: arrayUnion(newCollaborator),
+      });
+    } else {
+      // Just mark as verified
+      await updateDoc(ideaRef, {
+        [`pinVerified.${userId}`]: true,
+      });
+    }
 
     return true;
   } catch (error) {

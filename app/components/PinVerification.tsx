@@ -7,10 +7,11 @@ import { THEME } from '@/app/utils/constants';
 interface PinVerificationProps {
   ideaId: string;
   userId: string;
+  userName: string;
   onSuccess: () => void;
 }
 
-export function PinVerification({ ideaId, userId, onSuccess }: PinVerificationProps) {
+export function PinVerification({ ideaId, userId, userName, onSuccess }: PinVerificationProps) {
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -32,7 +33,7 @@ export function PinVerification({ ideaId, userId, onSuccess }: PinVerificationPr
     setLoading(true);
 
     try {
-      await verifyIdeaPin(ideaId, userId, pin);
+      await verifyIdeaPin(ideaId, userId, userName, pin);
       onSuccess();
     } catch (err: any) {
       setError(err.message || 'Failed to verify PIN');

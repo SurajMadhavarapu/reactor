@@ -225,7 +225,7 @@ export default function IdeaDetailPage() {
   // Check if PIN verification is needed
   const isOwner = user?.uid === idea.ownerId;
   if (!pinVerified && !isOwner) {
-    return <PinVerification ideaId={ideaId} userId={user?.uid || ''} onSuccess={() => { setPinVerified(true); loadIdea(); }} />;
+    return <PinVerification ideaId={ideaId} userId={user?.uid || ''} userName={user?.displayName || user?.email || 'User'} onSuccess={() => { setPinVerified(true); loadIdea(); }} />;
   }
 
   const progressIndex = PROGRESS_STAGES.indexOf(idea.progress as any);
