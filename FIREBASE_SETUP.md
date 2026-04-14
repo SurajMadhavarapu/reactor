@@ -1,5 +1,13 @@
 # 🔥 Firebase Setup - Complete Step-by-Step Guide
 
+## ⚠️ CRITICAL: If Signup Is Hanging
+
+If the signup form is stuck on "Creating Account..." for more than 10 seconds:
+1. Your Firebase credentials in `.env.local` are placeholder values (e.g., `your_api_key_here`)
+2. Follow the steps below to get your real credentials
+3. Update `.env.local` with actual values
+4. Restart `npm run dev`
+
 ## ✅ YES! Select Web Platform
 
 Here's exactly what to do:
