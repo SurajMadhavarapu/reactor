@@ -253,3 +253,32 @@ export async function verifyIdeaPin(ideaId: string, userId: string, enteredPin: 
     throw error;
   }
 }
+
+// UPDATE COLLABORATOR ROLE
+export async function updateCollaboratorRole(ideaId: string, userId: string, newRole: string) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    const snapshot = await getDoc(ideaRef);
+    
+    if (!snapshot.exists()) {
+      throw new Error('Idea not found');
+    }
+
+    const idea = snapshot.data();
+    const collaborators = idea.collaborators || [];
+    
+    // Find and update the collaborator
+    const updatedCollaborators = collaborators.map((collab: any) =>
+      collab.userId === userId ? { ...collab, role: newRole } : collab
+    );
+
+    await updateDoc(ideaRef, {
+      collaborators: updatedCollaborators,
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Error updating collaborator role:', error);
+    throw error;
+  }
+}
