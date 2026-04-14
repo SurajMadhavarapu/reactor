@@ -46,7 +46,10 @@ export async function GET(request) {
       },
     });
 
+    console.log('Spotify currently-playing status:', response.status);
+
     if (response.status === 401 && refreshToken) {
+      console.log('Token expired, refreshing...');
       const newAccessToken = await refreshAccessToken(refreshToken);
       if (newAccessToken) {
         accessToken = newAccessToken;
@@ -55,10 +58,12 @@ export async function GET(request) {
             Authorization: `Bearer ${accessToken}`,
           },
         });
+        console.log('Spotify currently-playing status after refresh:', response.status);
       }
     }
 
     if (response.status === 204 || !response.ok) {
+      console.log('Spotify returned 204 or error - no active playback');
       return NextResponse.json(
         { isPlaying: false, currentTrack: null, authenticated: true },
         { status: 200 }
@@ -66,8 +71,10 @@ export async function GET(request) {
     }
 
     const data = await response.json();
+    console.log('Spotify data:', { is_playing: data.is_playing, has_item: !!data.item });
 
     if (!data.item) {
+      console.log('No item in Spotify response');
       return NextResponse.json(
         { isPlaying: false, currentTrack: null, authenticated: true },
         { status: 200 }
@@ -83,6 +90,8 @@ export async function GET(request) {
       progressMs: data.progress_ms,
       durationMs: data.item.duration_ms,
     };
+
+    console.log('Returning track:', { title: currentTrack.title, isPlaying: data.is_playing });
 
     const res = NextResponse.json({
       isPlaying: data.is_playing,
