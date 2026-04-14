@@ -248,7 +248,7 @@ export function SignupForm() {
               placeholder="••••••••"
               required
             />
-            <p className="text-xs mt-2" style={{ color: THEME.colors.brightOrange }}>
+            <p className="text-xs mt-2" style={{ color: '#000000' }}>
               8+ characters, numbers, and special characters required
             </p>
           </div>
@@ -278,7 +278,7 @@ export function SignupForm() {
             className="w-full py-3 rounded font-bold transition"
             style={{
               backgroundColor: THEME.colors.darkSteel,
-              color: THEME.colors.white,
+              color: '#000000',
               opacity: loading ? 0.6 : 1,
             }}
           >
@@ -288,7 +288,7 @@ export function SignupForm() {
           {/* Divider */}
           <div className="flex items-center my-6">
             <div style={{ flex: 1, height: '1px', backgroundColor: THEME.colors.borderColor }} />
-            <span style={{ margin: '0 12px', color: THEME.colors.brightOrange, fontSize: '14px' }}>OR</span>
+            <span style={{ margin: '0 12px', color: '#000000', fontSize: '14px' }}>OR</span>
             <div style={{ flex: 1, height: '1px', backgroundColor: THEME.colors.borderColor }} />
           </div>
 
@@ -314,9 +314,9 @@ export function SignupForm() {
             {loading ? 'Creating Account...' : 'Sign up with Google'}
           </button>
 
-          <p className="mt-4 text-center" style={{ color: THEME.colors.darkSteel }}>
+          <p className="mt-4 text-center" style={{ color: '#000000' }}>
             Already have an account?{' '}
-            <Link href="/login" style={{ color: THEME.colors.brightOrange }} className="font-bold hover:underline">
+            <Link href="/login" style={{ color: '#000000' }} className="font-bold hover:underline">
               Login
             </Link>
           </p>

@@ -47,14 +47,14 @@ export function IdeaCard({
           <h3
             className="text-xl font-bold mb-3 line-clamp-2"
             style={{
-              color: THEME.colors.darkSteel,
+              color: '#000000',
             }}
           >
             {title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm mb-4 line-clamp-2 opacity-70" style={{ color: THEME.colors.brightOrange }}>
+          <p className="text-sm mb-4 line-clamp-2 opacity-70" style={{ color: '#000000' }}>
             {description}
           </p>
 
@@ -64,7 +64,7 @@ export function IdeaCard({
               className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold"
               style={{
                 backgroundColor: THEME.colors.darkBg,
-                color: THEME.colors.darkSteel,
+                color: '#000000',
               }}
             >
               {category}
@@ -88,7 +88,7 @@ export function IdeaCard({
                 transition={{ duration: 0.8, ease: 'easeInOut' }}
               />
             </div>
-            <p className="text-xs mt-2" style={{ color: THEME.colors.brightOrange }}>
+            <p className="text-xs mt-2" style={{ color: '#000000' }}>
               {progress.charAt(0).toUpperCase() + progress.slice(1)} · {progressPercent.toFixed(0)}%
             </p>
           </div>
@@ -100,19 +100,19 @@ export function IdeaCard({
               borderColor: THEME.colors.borderColor,
             }}
           >
-            <span style={{ color: THEME.colors.darkSteel }}>
+            <span style={{ color: '#000000' }}>
               By <strong>{ownerName}</strong>
             </span>
 
             <div className="flex gap-4">
               <motion.span
-                style={{ color: THEME.colors.brightOrange }}
+                style={{ color: '#000000' }}
                 whileHover={{ scale: 1.1 }}
               >
                 ❤️ {upvotes}
               </motion.span>
               <motion.span
-                style={{ color: THEME.colors.brightOrange }}
+                style={{ color: '#000000' }}
                 whileHover={{ scale: 1.1 }}
               >
                 💬 {commentCount}

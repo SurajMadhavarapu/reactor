@@ -77,17 +77,17 @@ export function CreateIdeaForm() {
           <Link
             href="/ideas"
             className="text-sm mb-4 inline-block hover:opacity-80 transition"
-            style={{ color: THEME.colors.brightOrange }}
+            style={{ color: '#000000' }}
           >
             ← Back to Ideas
           </Link>
           <h1
             className="text-5xl font-bold mb-3"
-            style={{ color: THEME.colors.darkSteel }}
+            style={{ color: '#000000' }}
           >
             💡 Launch Your Idea
           </h1>
-          <p style={{ color: THEME.colors.brightOrange }} className="opacity-80">
+          <p style={{ color: '#000000' }} className="opacity-80">
             Share your startup vision with the community
           </p>
         </motion.div>
@@ -156,7 +156,7 @@ export function CreateIdeaForm() {
               maxLength={VALIDATION.idea.titleMaxLength}
               required
             />
-            <p className="text-xs mt-2 opacity-70" style={{ color: THEME.colors.brightOrange }}>
+            <p className="text-xs mt-2 opacity-70" style={{ color: '#000000' }}>
               {title.length}/{VALIDATION.idea.titleMaxLength} characters
             </p>
           </motion.div>
@@ -183,7 +183,7 @@ export function CreateIdeaForm() {
               maxLength={VALIDATION.idea.descriptionMaxLength}
               required
             />
-            <p className="text-xs mt-2 opacity-70" style={{ color: THEME.colors.brightOrange }}>
+            <p className="text-xs mt-2 opacity-70" style={{ color: '#000000' }}>
               {description.length}/{VALIDATION.idea.descriptionMaxLength} characters
             </p>
           </motion.div>
@@ -229,7 +229,7 @@ export function CreateIdeaForm() {
             className="w-full py-4 rounded-lg font-bold text-lg transition"
             style={{
               background: THEME.gradients.button,
-              color: THEME.colors.white,
+              color: '#000000',
               opacity: loading ? 0.6 : 1,
               boxShadow: THEME.shadows.heavyGlow,
             }}

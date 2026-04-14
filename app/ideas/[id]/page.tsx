@@ -145,7 +145,7 @@ export default function IdeaDetailPage() {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-            style={{ color: THEME.colors.gold }}
+            style={{ color: "#000000" }}
             className="text-4xl"
           >
             ⚙️
@@ -160,10 +160,10 @@ export default function IdeaDetailPage() {
       <DashboardLayout>
         <div style={{ background: THEME.gradients.bgGradient }} className="min-h-screen p-6">
           <div className="max-w-4xl mx-auto text-center py-20">
-            <h1 style={{ color: THEME.colors.gold }} className="text-3xl font-bold mb-4">
+            <h1 style={{ color: "#000000" }} className="text-3xl font-bold mb-4">
               💔 Idea Not Found
             </h1>
-            <p style={{ color: THEME.colors.white }} className="mb-8 opacity-70">
+            <p style={{ color: "#000000" }} className="mb-8 opacity-70">
               The idea you're looking for doesn't exist or has been deleted
             </p>
             <Link href="/ideas">
@@ -194,7 +194,7 @@ export default function IdeaDetailPage() {
         <div className="max-w-4xl mx-auto">
           {/* Back Button */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Link href="/ideas" className="text-sm mb-6 inline-block hover:opacity-80 transition" style={{ color: THEME.colors.brightOrange }}>
+            <Link href="/ideas" className="text-sm mb-6 inline-block hover:opacity-80 transition" style={{ color: "#000000" }}>
               ← Back to Ideas
             </Link>
           </motion.div>
@@ -212,8 +212,8 @@ export default function IdeaDetailPage() {
             >
               {idea.title}
             </h1>
-            <p style={{ color: THEME.colors.white }} className="text-sm opacity-70">
-              By <strong style={{ color: THEME.colors.brightOrange }}>{idea.ownerName}</strong> · {idea.category}
+            <p style={{ color: "#000000" }} className="text-sm opacity-70">
+              By <strong style={{ color: "#000000" }}>{idea.ownerName}</strong> · {idea.category}
             </p>
           </motion.div>
 
@@ -224,28 +224,28 @@ export default function IdeaDetailPage() {
               className="lg:col-span-2 p-8 rounded-xl backdrop-blur-sm"
               style={{
                 background: THEME.gradients.card,
-                border: `2px solid ${THEME.colors.gold}`,
+                border: `2px solid ${"#000000"}`,
                 boxShadow: THEME.shadows.goldShadow,
               }}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1 }}
             >
-              <h2 style={{ color: THEME.colors.brightOrange }} className="text-lg font-bold mb-4">
+              <h2 style={{ color: "#000000" }} className="text-lg font-bold mb-4">
                 📝 Description
               </h2>
-              <p style={{ color: THEME.colors.white }} className="mb-8 leading-relaxed whitespace-pre-wrap opacity-90">
+              <p style={{ color: "#000000" }} className="mb-8 leading-relaxed whitespace-pre-wrap opacity-90">
                 {idea.description}
               </p>
 
               {/* Progress Section */}
-              <div className="border-t pt-6" style={{ borderColor: `${THEME.colors.gold}30` }}>
+              <div className="border-t pt-6" style={{ borderColor: `${"#000000"}30` }}>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 style={{ color: THEME.colors.brightOrange }} className="text-lg font-bold">
+                  <h3 style={{ color: "#000000" }} className="text-lg font-bold">
                     🚀 Progress
                   </h3>
                   {isOwner && (
-                    <span style={{ color: THEME.colors.white }} className="text-xs opacity-70">
+                    <span style={{ color: "#000000" }} className="text-xs opacity-70">
                       Owner - Can update
                     </span>
                   )}
@@ -268,7 +268,7 @@ export default function IdeaDetailPage() {
                       transition={{ duration: 0.8 }}
                     />
                   </div>
-                  <p style={{ color: THEME.colors.brightOrange }} className="text-sm font-semibold">
+                  <p style={{ color: "#000000" }} className="text-sm font-semibold">
                     {idea.progress.toUpperCase()} · {progressPercent.toFixed(0)}%
                   </p>
                 </div>
@@ -288,7 +288,7 @@ export default function IdeaDetailPage() {
                               ? `${THEME.colors.darkSteel}40`
                               : THEME.gradients.button,
                           color:
-                            PROGRESS_STAGES.indexOf(stage) <= progressIndex ? THEME.colors.white : THEME.colors.darkSteel,
+                            PROGRESS_STAGES.indexOf(stage) <= progressIndex ? "#000000" : THEME.colors.darkSteel,
                         }}
                       >
                         {stage.charAt(0).toUpperCase() + stage.slice(1)}
@@ -311,7 +311,7 @@ export default function IdeaDetailPage() {
                 className="p-6 rounded-xl backdrop-blur-sm text-center"
                 style={{
                   background: THEME.gradients.card,
-                  border: `2px solid ${THEME.colors.gold}`,
+                  border: `2px solid ${"#000000"}`,
                   boxShadow: THEME.shadows.goldShadow,
                 }}
               >
@@ -325,10 +325,10 @@ export default function IdeaDetailPage() {
                     ❤️
                   </span>
                 </motion.button>
-                <p style={{ color: THEME.colors.gold }} className="text-3xl font-bold mb-2">
+                <p style={{ color: "#000000" }} className="text-3xl font-bold mb-2">
                   {idea.upvotes}
                 </p>
-                <p style={{ color: THEME.colors.white }} className="text-sm opacity-70">
+                <p style={{ color: "#000000" }} className="text-sm opacity-70">
                   {isUpvoted ? 'You upvoted this' : 'Upvote this idea'}
                 </p>
               </div>
@@ -338,24 +338,24 @@ export default function IdeaDetailPage() {
                 className="p-6 rounded-xl backdrop-blur-sm"
                 style={{
                   background: THEME.gradients.card,
-                  border: `2px solid ${THEME.colors.gold}`,
+                  border: `2px solid ${"#000000"}`,
                   boxShadow: THEME.shadows.goldShadow,
                 }}
               >
-                <h3 style={{ color: THEME.colors.brightOrange }} className="text-sm font-bold mb-4">
+                <h3 style={{ color: "#000000" }} className="text-sm font-bold mb-4">
                   👥 COLLABORATORS ({idea.collaborators.length})
                 </h3>
                 <div className="space-y-2">
                   {idea.collaborators.map((collab) => (
                     <div key={collab.userId} className="flex items-center justify-between">
-                      <span style={{ color: THEME.colors.white }} className="text-sm">
+                      <span style={{ color: "#000000" }} className="text-sm">
                         {collab.username}
                       </span>
                       <span
                         className="text-xs px-2 py-1 rounded"
                         style={{
-                          background: `${THEME.colors.brightOrange}20`,
-                          color: THEME.colors.brightOrange,
+                          background: `${"#000000"}20`,
+                          color: "#000000",
                         }}
                       >
                         {collab.role}
@@ -372,14 +372,14 @@ export default function IdeaDetailPage() {
             className="p-8 rounded-xl backdrop-blur-sm"
             style={{
               background: THEME.gradients.card,
-              border: `2px solid ${THEME.colors.gold}`,
+              border: `2px solid ${"#000000"}`,
               boxShadow: THEME.shadows.goldShadow,
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <h2 style={{ color: THEME.colors.brightOrange }} className="text-xl font-bold mb-6">
+            <h2 style={{ color: "#000000" }} className="text-xl font-bold mb-6">
               💬 Discussion ({comments.length})
             </h2>
 
@@ -391,14 +391,14 @@ export default function IdeaDetailPage() {
                 placeholder="Share your thoughts..."
                 className="w-full px-4 py-3 rounded-lg bg-transparent text-white focus:outline-none transition resize-none backdrop-blur-sm"
                 style={{
-                  border: `2px solid ${THEME.colors.gold}`,
-                  boxShadow: `inset 0 0 10px ${THEME.colors.gold}20`,
+                  border: `2px solid ${"#000000"}`,
+                  boxShadow: `inset 0 0 10px ${"#000000"}20`,
                 }}
                 rows={3}
                 maxLength={VALIDATION.comment.maxLength}
               />
               <div className="flex items-center justify-between mt-3">
-                <p className="text-xs opacity-70" style={{ color: THEME.colors.brightOrange }}>
+                <p className="text-xs opacity-70" style={{ color: "#000000" }}>
                   {newComment.length}/{VALIDATION.comment.maxLength}
                 </p>
                 <motion.button
@@ -425,27 +425,27 @@ export default function IdeaDetailPage() {
                     className="p-4 rounded-lg"
                     style={{
                       background: `${THEME.colors.darkSteel}20`,
-                      border: `1px solid ${THEME.colors.gold}20`,
+                      border: `1px solid ${"#000000"}20`,
                     }}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <p style={{ color: THEME.colors.gold }} className="font-semibold text-sm">
+                      <p style={{ color: "#000000" }} className="font-semibold text-sm">
                         {comment.userName}
                       </p>
-                      <p style={{ color: THEME.colors.white }} className="text-xs opacity-50">
+                      <p style={{ color: "#000000" }} className="text-xs opacity-50">
                         {comment.createdAt?.toDate?.()?.toLocaleDateString?.() || 'Recently'}
                       </p>
                     </div>
-                    <p style={{ color: THEME.colors.white }} className="text-sm opacity-90">
+                    <p style={{ color: "#000000" }} className="text-sm opacity-90">
                       {comment.content}
                     </p>
                   </motion.div>
                 ))
               ) : (
-                <p style={{ color: THEME.colors.white }} className="text-center py-8 opacity-50">
+                <p style={{ color: "#000000" }} className="text-center py-8 opacity-50">
                   No comments yet. Be the first to share your thoughts!
                 </p>
               )}
@@ -456,3 +456,4 @@ export default function IdeaDetailPage() {
     </DashboardLayout>
   );
 }
+

@@ -10,10 +10,10 @@ export default function Dashboard() {
       <div className="max-w-6xl mx-auto">
         {/* Welcome Section */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-2" style={{ color: THEME.colors.gold }}>
+          <h1 className="text-4xl font-bold mb-2" style={{ color: '#000000' }}>
             Welcome to REACTOR
           </h1>
-          <p style={{ color: THEME.colors.white }}>
+          <p style={{ color: '#000000' }}>
             Where your startup ideas transform into reality
           </p>
         </div>
@@ -25,7 +25,7 @@ export default function Dashboard() {
             className="p-8 rounded-lg font-bold text-lg transition hover:scale-105"
             style={{
               backgroundColor: THEME.colors.gold,
-              color: THEME.colors.darkSteel,
+              color: '#000000',
               textDecoration: 'none',
             }}
           >
@@ -38,7 +38,7 @@ export default function Dashboard() {
             style={{
               backgroundColor: 'transparent',
               borderColor: THEME.colors.gold,
-              color: THEME.colors.gold,
+              color: '#000000',
               textDecoration: 'none',
             }}
           >
@@ -54,10 +54,10 @@ export default function Dashboard() {
             border: `2px solid ${THEME.colors.gold}`,
           }}
         >
-          <h2 style={{ color: THEME.colors.gold }} className="text-2xl font-bold mb-4">
+          <h2 style={{ color: '#000000' }} className="text-2xl font-bold mb-4">
             Recent Ideas
           </h2>
-          <p style={{ color: THEME.colors.white }}>
+          <p style={{ color: '#000000' }}>
             No ideas yet. Create your first idea to get started!
           </p>
         </div>

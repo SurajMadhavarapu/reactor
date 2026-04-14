@@ -70,7 +70,7 @@ export default function IdeasPage() {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-            style={{ color: THEME.colors.gold }}
+            style={{ color: "#000000" }}
             className="text-3xl"
           >
             ⚙️
@@ -95,11 +95,11 @@ export default function IdeasPage() {
               <div>
                 <h1
                   className="text-5xl font-bold mb-2"
-                  style={{ color: THEME.colors.darkSteel }}
+                  style={{ color: '#000000' }}
                 >
                   💡 Startup Ideas
                 </h1>
-                <p style={{ color: THEME.colors.brightOrange }} className="text-sm font-semibold">
+                <p style={{ color: '#000000' }} className="text-sm font-semibold">
                   ✨ Transform ideas into reality
                 </p>
               </div>
@@ -110,7 +110,7 @@ export default function IdeasPage() {
                   className="px-8 py-3 rounded-lg font-bold transition"
                   style={{
                     backgroundColor: THEME.colors.darkSteel,
-                    color: THEME.colors.white,
+                    color: "#000000",
                   }}
                 >
                   ✨ New Idea
@@ -135,20 +135,22 @@ export default function IdeasPage() {
                 placeholder="🔍 Search ideas..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition"
+                className="w-full px-4 py-3 rounded-lg focus:outline-none transition"
                 style={{
-                  backgroundColor: THEME.colors.white,
+                  backgroundColor: "#000000",
                   boxShadow: THEME.shadows.glow,
+                  color: '#000000',
                 }}
               />
             </div>
             <select
               value={filterCategory}
               onChange={(e) => setFilterCategory(e.target.value)}
-              className="px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition"
+              className="px-4 py-3 rounded-lg focus:outline-none transition"
               style={{
-                backgroundColor: THEME.colors.white,
+                backgroundColor: "#000000",
                 boxShadow: THEME.shadows.glow,
+                color: '#000000',
               }}
             >
               <option value="">🎯 All Categories</option>
@@ -214,7 +216,7 @@ export default function IdeasPage() {
             <motion.div
               className="text-center py-16 rounded-xl"
               style={{
-                backgroundColor: THEME.colors.white,
+                backgroundColor: "#000000",
                 border: `3px dashed ${THEME.colors.borderColor}`,
                 boxShadow: THEME.shadows.heavyGlow,
               }}
@@ -224,12 +226,12 @@ export default function IdeasPage() {
               <p
                 className="text-2xl mb-4 font-bold"
                 style={{
-                  color: THEME.colors.darkSteel,
+                  color: '#000000',
                 }}
               >
                 {searchTerm || filterCategory ? '🔍 No ideas match your search' : '💡 No ideas yet'}
               </p>
-              <p style={{ color: THEME.colors.brightOrange }} className="text-sm mb-8 opacity-70">
+              <p style={{ color: '#000000' }} className="text-sm mb-8 opacity-70">
                 {searchTerm || filterCategory
                   ? 'Try adjusting your search or filter criteria'
                   : 'Be the first to share a revolutionary startup idea!'}
@@ -240,7 +242,7 @@ export default function IdeasPage() {
                   className="px-8 py-3 rounded-lg font-bold inline-block transition"
                   style={{
                     backgroundColor: THEME.colors.darkSteel,
-                    color: THEME.colors.white,
+                    color: "#000000",
                     boxShadow: THEME.shadows.heavyGlow,
                   }}
                 >
@@ -254,3 +256,4 @@ export default function IdeasPage() {
     </DashboardLayout>
   );
 }
+

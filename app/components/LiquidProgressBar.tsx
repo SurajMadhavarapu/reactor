@@ -145,8 +145,8 @@ export function LiquidProgressBar({
                 <motion.div
                   className="text-xs font-semibold mt-2 whitespace-nowrap"
                   animate={{
-                    color: isCurrentStage ? THEME.colors.gold : isActive ? THEME.colors.gold : THEME.colors.white,
-                    textShadow: isCurrentStage ? `0 0 10px ${THEME.colors.gold}` : 'none',
+                    color: isCurrentStage ? '#000000' : isActive ? '#000000' : '#000000',
+                    textShadow: isCurrentStage ? `0 0 10px #000000` : 'none',
                   }}
                 >
                   {stage.charAt(0).toUpperCase() + stage.slice(1)}
@@ -180,11 +180,11 @@ export function LiquidProgressBar({
 
       {/* Status Text */}
       <div className="mt-4 text-center">
-        <p style={{ color: THEME.colors.gold }} className="text-sm font-semibold">
+        <p style={{ color: '#000000' }} className="text-sm font-semibold">
           Stage: {currentStage.toUpperCase()} • {progressPercent.toFixed(0)}% Complete
         </p>
         {interactive && (
-          <p style={{ color: THEME.colors.brightOrange }} className="text-xs mt-1">
+          <p style={{ color: '#000000' }} className="text-xs mt-1">
             Click to update progress (forward only)
           </p>
         )}

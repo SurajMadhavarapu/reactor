@@ -58,13 +58,13 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         }}
       >
         <Link href="/dashboard" className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold" style={{ color: THEME.colors.gold }}>
+          <h1 className="text-2xl font-bold" style={{ color: '#000000' }}>
             REACTOR
           </h1>
         </Link>
 
         <div className="flex items-center gap-6">
-          <span style={{ color: THEME.colors.white }}>
+          <span style={{ color: '#000000' }}>
             Welcome, <strong>{user?.displayName || user?.email}</strong>
           </span>
 
@@ -73,7 +73,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             className="px-4 py-2 rounded font-bold transition"
             style={{
               backgroundColor: THEME.colors.deepRed,
-              color: THEME.colors.white,
+              color: '#000000',
             }}
           >
             Logout

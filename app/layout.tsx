@@ -30,7 +30,7 @@ export default function RootLayout({
         <title>REACTOR - Startup Ideas Platform</title>
         <meta name="description" content="Share, discuss, and collaborate on startup ideas with the power of REACTOR" />
       </head>
-      <body className="min-h-full flex flex-col" style={{ backgroundColor: THEME.colors.darkBg, color: THEME.colors.white }}>
+      <body className="min-h-full flex flex-col" style={{ backgroundColor: THEME.colors.darkBg, color: '#000000' }}>
         <AuthProvider>
           {children}
         </AuthProvider>

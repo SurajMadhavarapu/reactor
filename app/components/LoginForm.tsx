@@ -203,7 +203,7 @@ export function LoginForm() {
               className="w-full py-3 rounded font-bold transition"
               style={{
                 backgroundColor: THEME.colors.darkSteel,
-                color: THEME.colors.white,
+                color: '#000000',
                 opacity: loading || isAccountLocked ? 0.6 : 1,
               }}
             >
@@ -213,7 +213,7 @@ export function LoginForm() {
             {/* Divider */}
             <div className="flex items-center my-6">
               <div style={{ flex: 1, height: '1px', backgroundColor: THEME.colors.borderColor }} />
-              <span style={{ margin: '0 12px', color: THEME.colors.brightOrange, fontSize: '14px' }}>OR</span>
+              <span style={{ margin: '0 12px', color: '#000000', fontSize: '14px' }}>OR</span>
               <div style={{ flex: 1, height: '1px', backgroundColor: THEME.colors.borderColor }} />
             </div>
 
@@ -243,14 +243,14 @@ export function LoginForm() {
               type="button"
               onClick={() => setShowResetForm(true)}
               className="w-full mt-3 py-2 text-sm rounded transition"
-              style={{ color: THEME.colors.brightOrange }}
+              style={{ color: '#000000' }}
             >
               Forgot Password?
             </button>
 
-            <p className="mt-4 text-center" style={{ color: THEME.colors.darkSteel }}>
+            <p className="mt-4 text-center" style={{ color: '#000000' }}>
               Don't have an account?{' '}
-              <Link href="/signup" style={{ color: THEME.colors.brightOrange }} className="font-bold hover:underline">
+              <Link href="/signup" style={{ color: '#000000' }} className="font-bold hover:underline">
                 Sign Up
               </Link>
             </p>
@@ -317,7 +317,7 @@ export function LoginForm() {
               className="w-full py-3 rounded font-bold transition"
               style={{
                 backgroundColor: THEME.colors.darkSteel,
-                color: THEME.colors.white,
+                color: '#000000',
                 opacity: loading ? 0.6 : 1,
               }}
             >
@@ -328,7 +328,7 @@ export function LoginForm() {
               type="button"
               onClick={() => setShowResetForm(false)}
               className="w-full mt-3 py-2 text-sm rounded transition"
-              style={{ color: THEME.colors.brightOrange }}
+              style={{ color: '#000000' }}
             >
               Back to Login
             </button>
