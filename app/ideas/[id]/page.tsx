@@ -59,6 +59,8 @@ export default function IdeaDetailPage() {
   const [updatingRole, setUpdatingRole] = useState<string | null>(null);
   const [editingRoleFor, setEditingRoleFor] = useState<string | null>(null);
   const [customRoleInput, setCustomRoleInput] = useState('');
+  const [renamingCollabId, setRenamingCollabId] = useState<string | null>(null);
+  const [renameInput, setRenameInput] = useState('');
 
 
   useEffect(() => {
@@ -196,6 +198,32 @@ export default function IdeaDetailPage() {
     }
     handleRoleUpdate(collaboratorId, customRoleInput.trim());
     setCustomRoleInput('');
+  };
+
+  const handleRenameCollaborator = async (collaboratorId: string) => {
+    if (!idea) return;
+    if (!renameInput.trim()) {
+      setError('Nickname cannot be empty');
+      return;
+    }
+
+    try {
+      // Update collaborators with custom name
+      const { doc, updateDoc } = await import('firebase/firestore');
+      const { db } = await import('@/lib/firebase');
+      const ideaRef = doc(db, 'ideas', ideaId);
+      
+      const updatedCollaborators = idea.collaborators.map((collab) =>
+        collab.userId === collaboratorId ? { ...collab, customName: renameInput.trim() } : collab
+      );
+      
+      await updateDoc(ideaRef, { collaborators: updatedCollaborators });
+      setIdea({ ...idea, collaborators: updatedCollaborators });
+      setRenamingCollabId(null);
+      setRenameInput('');
+    } catch (err: any) {
+      setError(err.message || 'Failed to rename collaborator');
+    }
   };
 
   const handleLeaveIdea = async () => {
@@ -442,10 +470,54 @@ export default function IdeaDetailPage() {
                   {idea.collaborators && idea.collaborators.length > 0 ? (
                     idea.collaborators.map((collab) => (
                       <div key={collab.userId} className="flex items-center justify-between gap-2">
-                        <span style={{ color: THEME.colors.charcoal }} className="text-sm truncate flex-1">
-                          {collab.username}
-                        </span>
-                        {isOwner ? (
+                        {renamingCollabId === collab.userId ? (
+                          <div className="flex gap-1 items-center flex-1">
+                            <input
+                              type="text"
+                              placeholder="Enter nickname"
+                              defaultValue={collab.customName || ''}
+                              onChange={(e) => setRenameInput(e.target.value)}
+                              onKeyPress={(e) => {
+                                if (e.key === 'Enter') handleRenameCollaborator(collab.userId);
+                              }}
+                              className="text-xs px-2 py-1 rounded flex-1"
+                              style={{
+                                background: THEME.colors.cream,
+                                color: THEME.colors.navy,
+                                border: `1px solid ${THEME.colors.gold}`,
+                              }}
+                              autoFocus
+                            />
+                            <button
+                              onClick={() => handleRenameCollaborator(collab.userId)}
+                              className="text-xs px-2 py-1 rounded"
+                              style={{ background: THEME.colors.gold, color: THEME.colors.navy }}
+                            >
+                              ✓
+                            </button>
+                            <button
+                              onClick={() => setRenamingCollabId(null)}
+                              className="text-xs px-2 py-1 rounded"
+                              style={{ background: `${THEME.colors.burgundy}40`, color: THEME.colors.burgundy }}
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ) : (
+                          <span
+                            style={{ color: THEME.colors.charcoal }}
+                            className="text-sm truncate flex-1 cursor-context-menu"
+                            onContextMenu={(e) => {
+                              e.preventDefault();
+                              setRenamingCollabId(collab.userId);
+                              setRenameInput(collab.customName || '');
+                            }}
+                            title="Right-click to rename"
+                          >
+                            {collab.customName ? `${collab.username}(${collab.customName})` : collab.username}
+                          </span>
+                        )}
+                        {!renamingCollabId && isOwner ? (
                           editingRoleFor === collab.userId ? (
                             // Custom role input mode
                             <div className="flex gap-1 items-center w-48">
