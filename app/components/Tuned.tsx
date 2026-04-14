@@ -78,6 +78,10 @@ export function Tuned() {
         } else if (data.currentTrack || data.isPlaying) {
           setIsAuthenticated(true);
           setError(null);
+        } else if (!data.error) {
+          // No error but no current track - might just not be playing
+          setIsAuthenticated(true);
+          setError(null);
         }
         
         setTrack(data);
@@ -91,8 +95,20 @@ export function Tuned() {
 
     fetchNowPlaying();
     const interval = setInterval(fetchNowPlaying, 30000);
+    
+    // Refetch immediately when page becomes visible (e.g., after OAuth redirect)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        fetchNowPlaying();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   const handleConnect = () => {

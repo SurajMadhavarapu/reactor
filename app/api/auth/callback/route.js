@@ -53,8 +53,11 @@ export async function GET(request) {
 
     const tokenData = await tokenResponse.json();
 
-    // Redirect back to dashboard instead of home page to stay authenticated
-    const response = NextResponse.redirect(new URL('/dashboard', request.url));
+    // Get the referrer to redirect back to the idea page
+    // Fallback to dashboard if no referrer available
+    const referrer = request.headers.get('referer') || '/dashboard';
+    const response = NextResponse.redirect(new URL(referrer, request.url));
+    
     response.cookies.set('spotify_access_token', tokenData.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
