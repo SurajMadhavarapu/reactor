@@ -41,7 +41,7 @@ export async function createIdea(
           userId,
           username: userName,
           role: 'owner',
-          joinedAt: serverTimestamp(),
+          joinedAt: new Date(),
         },
       ],
       createdAt: serverTimestamp(),
@@ -102,7 +102,7 @@ export async function updateIdeaProgress(
         userId,
         userName,
         toStage: newProgress,
-        timestamp: serverTimestamp(),
+        timestamp: new Date(),
       }),
     });
   } catch (error) {
@@ -210,7 +210,7 @@ export async function addCollaborator(
         userId,
         username: userName,
         role,
-        joinedAt: serverTimestamp(),
+        joinedAt: new Date(),
       }),
     });
   } catch (error) {
