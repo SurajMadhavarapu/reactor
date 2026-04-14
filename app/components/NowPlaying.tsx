@@ -34,6 +34,7 @@ const Equalizer = ({ isPlaying }: { isPlaying: boolean }) => {
               ? THEME.gradients.button
               : `${THEME.colors.gold}40`,
             opacity: isPlaying ? 1 : 0.5,
+            border: `2px solid ${THEME.colors.gold}`,
           }}
           animate={
             isPlaying
