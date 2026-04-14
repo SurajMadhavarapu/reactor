@@ -3,8 +3,8 @@ export const THEME = {
   colors: {
     gold: '#F5F5F0',           // Cream/off-white
     deepRed: '#E8E8E3',        // Light cream
-    darkSteel: '#2C2C2C',      // Dark text
-    brightOrange: '#333333',   // Dark gray text
+    darkSteel: '#000000',      // Pure black text
+    brightOrange: '#000000',   // Pure black text
     white: '#FFFFFF',          // Pure white
     darkBg: '#FAF9F6',         // Cream background
     cardBg: '#FFFFFF',         // White cards
