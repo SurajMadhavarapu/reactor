@@ -7,8 +7,6 @@ import {
   getIdeaById,
   addComment,
   getComments,
-  upvoteIdea,
-  removeUpvote,
   updateIdeaProgress,
   updateCollaboratorRole,
   listenToComments,
@@ -56,7 +54,7 @@ export default function IdeaDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [commentError, setCommentError] = useState('');
-  const [isUpvoted, setIsUpvoted] = useState(false);
+  const [musicMood, setMusicMood] = useState('');
   const [pinVerified, setPinVerified] = useState(false);
   const [updatingRole, setUpdatingRole] = useState<string | null>(null);
   const [editingRoleFor, setEditingRoleFor] = useState<string | null>(null);
@@ -83,7 +81,6 @@ export default function IdeaDetailPage() {
           }
           
           setIdea(fetchedIdea);
-          setIsUpvoted(user ? fetchedIdea.upvoters?.includes(user.uid) : false);
 
           // Check if user has PIN verified or is owner
           const isOwner = user?.uid === fetchedIdea.ownerId;
@@ -92,10 +89,9 @@ export default function IdeaDetailPage() {
           if (isOwner || userVerified) {
             setPinVerified(true);
             
-            // Set up real-time listener for idea changes (progress, description, upvotes, collaborators)
+            // Set up real-time listener for idea changes (progress, description, collaborators)
             const ideaUnsubscribe = listenToIdea(ideaId, (updatedIdea) => {
               setIdea(updatedIdea);
-              setIsUpvoted(user ? updatedIdea.upvoters?.includes(user.uid) : false);
             }, (error) => {
               console.error('Error in idea listener:', error);
               setError('Failed to sync idea updates');
@@ -135,24 +131,6 @@ export default function IdeaDetailPage() {
       };
     }
   }, [user, authLoading, router, ideaId]);
-
-  const handleUpvote = async () => {
-    if (!user || !idea) return;
-
-    try {
-      if (isUpvoted) {
-        await removeUpvote(ideaId, user.uid);
-        setIdea({ ...idea, upvotes: idea.upvotes - 1, upvoters: idea.upvoters.filter((u) => u !== user.uid) });
-        setIsUpvoted(false);
-      } else {
-        await upvoteIdea(ideaId, user.uid);
-        setIdea({ ...idea, upvotes: idea.upvotes + 1, upvoters: [...idea.upvoters, user.uid] });
-        setIsUpvoted(true);
-      }
-    } catch (err: any) {
-      setError(err.message || ERROR_MESSAGES.network.error);
-    }
-  };
 
   const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -406,31 +384,46 @@ export default function IdeaDetailPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              {/* Upvote Card */}
+              {/* Music Mood Card */}
               <div
-                className="p-6 rounded-xl backdrop-blur-sm text-center"
+                className="p-6 rounded-xl backdrop-blur-sm"
                 style={{
                   background: THEME.gradients.card,
                   border: `2px solid ${THEME.colors.gold}`,
                   boxShadow: THEME.shadows.goldShadow,
                 }}
               >
-                <motion.button
-                  onClick={handleUpvote}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full mb-4"
-                >
-                  <span className="text-5xl" style={{ opacity: isUpvoted ? 1 : 0.6 }}>
-                    ♥
-                  </span>
-                </motion.button>
-                <p style={{ color: THEME.colors.navy }} className="text-3xl font-serif font-bold mb-2">
-                  {idea.upvotes}
+                <h3 style={{ color: THEME.colors.navy }} className="text-sm font-serif font-bold mb-4">
+                  WORKING VIBE
+                </h3>
+                <p style={{ color: THEME.colors.charcoal }} className="text-xs mb-4 opacity-80">
+                  What music are you working to?
                 </p>
-                <p style={{ color: THEME.colors.charcoal }} className="text-sm opacity-70">
-                  {isUpvoted ? 'You upvoted this' : 'Upvote this idea'}
-                </p>
+                <div className="space-y-2 mb-4">
+                  {['🎵 Spotify', '🎵 YouTube Music', '🎵 Apple Music'].map((platform) => (
+                    <button
+                      key={platform}
+                      onClick={() => setMusicMood(platform)}
+                      className="w-full py-2 px-3 rounded-lg text-sm font-medium transition"
+                      style={{
+                        background:
+                          musicMood === platform
+                            ? THEME.gradients.button
+                            : `${THEME.colors.gold}20`,
+                        color: THEME.colors.cream,
+                        opacity: musicMood === platform ? 1 : 0.7,
+                        border: `1px solid ${musicMood === platform ? THEME.colors.gold : 'transparent'}`,
+                      }}
+                    >
+                      {platform}
+                    </button>
+                  ))}
+                </div>
+                {musicMood && (
+                  <p style={{ color: THEME.colors.navy }} className="text-xs font-medium">
+                    Vibing with: <span style={{ color: THEME.colors.gold }}>{musicMood}</span>
+                  </p>
+                )}
               </div>
 
               {/* Collaborators Card */}
