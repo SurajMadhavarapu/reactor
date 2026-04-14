@@ -1,13 +1,10 @@
 import Link from "next/link";
 import { THEME } from "@/app/utils/constants";
 import InteractiveReactor from "@/app/components/InteractiveReactor";
-import ArcReactorBackground from "@/app/components/ArcReactorBackground";
 
 export default function Home() {
   return (
-    <>
-      <ArcReactorBackground opacity={0.2} />
-      <main className="relative min-h-screen flex flex-col items-center justify-center px-4 z-10" style={{ background: THEME.gradients.bgGradient }}>
+    <main className="min-h-screen flex flex-col items-center justify-center px-4" style={{ background: THEME.gradients.bgGradient }}>
       <div className="text-center mb-12">
         <InteractiveReactor />
         <p className="text-2xl mb-2 font-serif" style={{ color: THEME.colors.navy }}>
@@ -43,7 +40,6 @@ export default function Home() {
           Login
         </Link>
       </div>
-      </main>
-    </>
+    </main>
   );
 }
