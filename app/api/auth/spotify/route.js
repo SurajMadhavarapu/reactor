@@ -4,6 +4,21 @@ import crypto from 'crypto';
 export async function GET(request) {
   const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
   const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
+
+  // Validate required environment variables
+  if (!clientId || !redirectUri) {
+    return NextResponse.json(
+      {
+        error: 'Missing Spotify configuration',
+        details: {
+          clientId: clientId ? 'set' : 'missing',
+          redirectUri: redirectUri ? 'set' : 'missing',
+        },
+      },
+      { status: 500 }
+    );
+  }
+
   const state = crypto.randomBytes(16).toString('hex');
 
   const scopes = [

@@ -64,6 +64,7 @@ export function Tuned() {
   const [track, setTrack] = useState<NowPlayingData | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchNowPlaying = async () => {
@@ -71,13 +72,18 @@ export function Tuned() {
         const response = await fetch('/api/now-playing');
         const data = await response.json();
         
-        if (data.currentTrack || data.isPlaying) {
+        if (data.error) {
+          setError(data.error);
+          setIsAuthenticated(false);
+        } else if (data.currentTrack || data.isPlaying) {
           setIsAuthenticated(true);
+          setError(null);
         }
         
         setTrack(data);
-      } catch (error) {
-        console.error('Error fetching now playing:', error);
+      } catch (err) {
+        console.error('Error fetching now playing:', err);
+        setError('Failed to fetch track data');
       } finally {
         setLoading(false);
       }
@@ -121,6 +127,17 @@ export function Tuned() {
         <h3 style={{ color: THEME.colors.navy }} className="text-sm font-serif font-bold mb-4">
           TUNED
         </h3>
+        
+        {error && (
+          <div className="mb-4 p-3 rounded-lg" style={{ background: `${THEME.colors.error}20`, border: `1px solid ${THEME.colors.error}` }}>
+            <p style={{ color: THEME.colors.error }} className="text-xs font-medium">
+              {error === 'Missing Spotify configuration'
+                ? 'Spotify not configured. Check environment variables.'
+                : error}
+            </p>
+          </div>
+        )}
+        
         <p style={{ color: THEME.colors.charcoal }} className="text-xs mb-4 opacity-80">
           Connect your Spotify to see what you're vibing to
         </p>
