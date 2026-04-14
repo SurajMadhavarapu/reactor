@@ -132,21 +132,22 @@ export function SignupForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: THEME.colors.darkBg }}>
+    <div className="min-h-screen flex items-center justify-center" style={{ background: THEME.gradients.bgGradient }}>
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-2" style={{ color: THEME.colors.darkSteel }}>
+          <h1 className="text-4xl font-serif font-bold mb-2" style={{ color: THEME.colors.navy }}>
             REACTOR
           </h1>
-          <p style={{ color: THEME.colors.darkSteel }}>Create your account</p>
+          <p style={{ color: THEME.colors.slate }}>Create your account</p>
         </div>
 
         <form
           onSubmit={handleSignup}
           className="p-8 rounded-lg"
           style={{
-            backgroundColor: THEME.colors.white,
+            backgroundColor: THEME.colors.ivory,
             boxShadow: THEME.shadows.heavyGlow,
+            border: `1px solid ${THEME.colors.gold}`,
           }}
         >
           {error && (
@@ -176,18 +177,20 @@ export function SignupForm() {
           )}
 
           <div className="mb-4">
-            <label className="block text-sm mb-2" style={{ color: THEME.colors.darkSteel }}>
+            <label className="block text-sm mb-2 font-medium" style={{ color: THEME.colors.navy }}>
               Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 rounded border-1 bg-transparent text-gray-800 focus:outline-none transition"
+              className="w-full px-4 py-2 rounded focus:outline-none transition"
               style={{
-                borderColor: THEME.colors.borderColor,
+                backgroundColor: THEME.colors.cream,
+                borderColor: THEME.colors.gold,
                 boxShadow: THEME.shadows.glow,
-                border: `1px solid ${THEME.colors.borderColor}`,
+                border: `1px solid ${THEME.colors.gold}`,
+                color: THEME.colors.charcoal,
               }}
               placeholder="you@example.com"
               required
@@ -195,18 +198,20 @@ export function SignupForm() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm mb-2" style={{ color: THEME.colors.darkSteel }}>
+            <label className="block text-sm mb-2 font-medium" style={{ color: THEME.colors.navy }}>
               Username
             </label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-2 rounded text-gray-800 focus:outline-none transition"
+              className="w-full px-4 py-2 rounded focus:outline-none transition"
               style={{
-                borderColor: THEME.colors.borderColor,
+                backgroundColor: THEME.colors.cream,
+                borderColor: THEME.colors.gold,
                 boxShadow: THEME.shadows.glow,
-                border: `1px solid ${THEME.colors.borderColor}`,
+                border: `1px solid ${THEME.colors.gold}`,
+                color: THEME.colors.charcoal,
               }}
               placeholder="your_username"
               required
@@ -214,58 +219,64 @@ export function SignupForm() {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm mb-2" style={{ color: THEME.colors.darkSteel }}>
+            <label className="block text-sm mb-2 font-medium" style={{ color: THEME.colors.navy }}>
               Display Name (Optional)
             </label>
             <input
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              className="w-full px-4 py-2 rounded text-gray-800 focus:outline-none transition"
+              className="w-full px-4 py-2 rounded focus:outline-none transition"
               style={{
-                borderColor: THEME.colors.borderColor,
+                backgroundColor: THEME.colors.cream,
+                borderColor: THEME.colors.gold,
                 boxShadow: THEME.shadows.glow,
-                border: `1px solid ${THEME.colors.borderColor}`,
+                border: `1px solid ${THEME.colors.gold}`,
+                color: THEME.colors.charcoal,
               }}
               placeholder="John Doe"
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm mb-2" style={{ color: THEME.colors.darkSteel }}>
+            <label className="block text-sm mb-2 font-medium" style={{ color: THEME.colors.navy }}>
               Password
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 rounded text-gray-800 focus:outline-none transition"
+              className="w-full px-4 py-2 rounded focus:outline-none transition"
               style={{
-                borderColor: THEME.colors.borderColor,
+                backgroundColor: THEME.colors.cream,
+                borderColor: THEME.colors.gold,
                 boxShadow: THEME.shadows.glow,
-                border: `1px solid ${THEME.colors.borderColor}`,
+                border: `1px solid ${THEME.colors.gold}`,
+                color: THEME.colors.charcoal,
               }}
               placeholder="••••••••"
               required
             />
-            <p className="text-xs mt-2" style={{ color: '#000000' }}>
+            <p className="text-xs mt-2" style={{ color: THEME.colors.slate }}>
               8+ characters, numbers, and special characters required
             </p>
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm mb-2" style={{ color: THEME.colors.darkSteel }}>
+            <label className="block text-sm mb-2 font-medium" style={{ color: THEME.colors.navy }}>
               Confirm Password
             </label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-2 rounded text-gray-800 focus:outline-none transition"
+              className="w-full px-4 py-2 rounded focus:outline-none transition"
               style={{
-                borderColor: THEME.colors.borderColor,
+                backgroundColor: THEME.colors.cream,
+                borderColor: THEME.colors.gold,
                 boxShadow: THEME.shadows.glow,
-                border: `1px solid ${THEME.colors.borderColor}`,
+                border: `1px solid ${THEME.colors.gold}`,
+                color: THEME.colors.charcoal,
               }}
               placeholder="••••••••"
               required
@@ -275,10 +286,10 @@ export function SignupForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded font-bold transition"
+            className="w-full py-3 rounded font-bold transition hover:opacity-90"
             style={{
-              backgroundColor: THEME.colors.darkSteel,
-              color: '#000000',
+              background: THEME.gradients.button,
+              color: THEME.colors.cream,
               opacity: loading ? 0.6 : 1,
             }}
           >
@@ -287,9 +298,9 @@ export function SignupForm() {
 
           {/* Divider */}
           <div className="flex items-center my-6">
-            <div style={{ flex: 1, height: '1px', backgroundColor: THEME.colors.borderColor }} />
-            <span style={{ margin: '0 12px', color: '#000000', fontSize: '14px' }}>OR</span>
-            <div style={{ flex: 1, height: '1px', backgroundColor: THEME.colors.borderColor }} />
+            <div style={{ flex: 1, height: '1px', backgroundColor: THEME.colors.gold }} />
+            <span style={{ margin: '0 12px', color: THEME.colors.slate, fontSize: '14px' }}>OR</span>
+            <div style={{ flex: 1, height: '1px', backgroundColor: THEME.colors.gold }} />
           </div>
 
           {/* Google Sign-Up Button */}
@@ -297,11 +308,11 @@ export function SignupForm() {
             type="button"
             onClick={handleGoogleSignUp}
             disabled={loading}
-            className="w-full py-3 rounded font-bold transition flex items-center justify-center gap-2"
+            className="w-full py-3 rounded font-bold transition flex items-center justify-center gap-2 hover:opacity-90"
             style={{
               backgroundColor: THEME.colors.white,
-              color: THEME.colors.darkSteel,
-              border: `1px solid ${THEME.colors.borderColor}`,
+              color: THEME.colors.navy,
+              border: `1px solid ${THEME.colors.gold}`,
               opacity: loading ? 0.6 : 1,
             }}
           >
@@ -314,9 +325,9 @@ export function SignupForm() {
             {loading ? 'Creating Account...' : 'Sign up with Google'}
           </button>
 
-          <p className="mt-4 text-center" style={{ color: '#000000' }}>
+          <p className="mt-4 text-center" style={{ color: THEME.colors.charcoal }}>
             Already have an account?{' '}
-            <Link href="/login" style={{ color: '#000000' }} className="font-bold hover:underline">
+            <Link href="/login" style={{ color: THEME.colors.burgundy }} className="font-bold hover:underline">
               Login
             </Link>
           </p>

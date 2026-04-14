@@ -10,10 +10,10 @@ export default function Dashboard() {
       <div className="max-w-6xl mx-auto">
         {/* Welcome Section */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-2" style={{ color: '#000000' }}>
+          <h1 className="text-4xl font-serif font-bold mb-2" style={{ color: THEME.colors.navy }}>
             Welcome to REACTOR
           </h1>
-          <p style={{ color: '#000000' }}>
+          <p style={{ color: THEME.colors.slate }}>
             Where your startup ideas transform into reality
           </p>
         </div>
@@ -24,12 +24,12 @@ export default function Dashboard() {
             href="/ideas/new"
             className="p-8 rounded-lg font-bold text-lg transition hover:scale-105"
             style={{
-              backgroundColor: THEME.colors.gold,
-              color: '#000000',
+              background: THEME.gradients.button,
+              color: THEME.colors.cream,
               textDecoration: 'none',
             }}
           >
-            💡 Create New Idea
+            Create New Idea
           </Link>
 
           <Link
@@ -37,12 +37,12 @@ export default function Dashboard() {
             className="p-8 rounded-lg font-bold text-lg transition border-2"
             style={{
               backgroundColor: 'transparent',
-              borderColor: THEME.colors.gold,
-              color: '#000000',
+              borderColor: THEME.colors.navy,
+              color: THEME.colors.navy,
               textDecoration: 'none',
             }}
           >
-            📋 Browse All Ideas
+            Browse All Ideas
           </Link>
         </div>
 
@@ -50,14 +50,15 @@ export default function Dashboard() {
         <div
           className="p-8 rounded-lg"
           style={{
-            backgroundColor: THEME.colors.cardBg,
+            backgroundColor: THEME.colors.ivory,
             border: `2px solid ${THEME.colors.gold}`,
+            boxShadow: THEME.shadows.card,
           }}
         >
-          <h2 style={{ color: '#000000' }} className="text-2xl font-bold mb-4">
+          <h2 style={{ color: THEME.colors.navy }} className="text-2xl font-serif font-bold mb-4">
             Recent Ideas
           </h2>
-          <p style={{ color: '#000000' }}>
+          <p style={{ color: THEME.colors.charcoal }}>
             No ideas yet. Create your first idea to get started!
           </p>
         </div>

@@ -3,16 +3,16 @@ import { THEME } from "@/app/utils/constants";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4" style={{ backgroundColor: THEME.colors.darkBg }}>
+    <main className="min-h-screen flex flex-col items-center justify-center px-4" style={{ background: THEME.gradients.bgGradient }}>
       {/* Hero Section */}
       <div className="text-center mb-12">
-        <h1 className="text-6xl font-bold mb-4" style={{ color: '#000000' }}>
+        <h1 className="text-6xl font-serif font-bold mb-4" style={{ color: THEME.colors.navy }}>
           REACTOR
         </h1>
-        <p className="text-2xl mb-2" style={{ color: '#000000' }}>
+        <p className="text-2xl mb-2 font-serif" style={{ color: THEME.colors.navy }}>
           Share. Collaborate. Build.
         </p>
-        <p className="text-lg" style={{ color: '#000000' }}>
+        <p className="text-lg" style={{ color: THEME.colors.slate }}>
           Where startup ideas come to life
         </p>
       </div>
@@ -22,15 +22,15 @@ export default function Home() {
         <div
           className="p-6 rounded-lg"
           style={{
-            backgroundColor: THEME.colors.cardBg,
-            border: `2px solid ${THEME.colors.gold}`,
+            backgroundColor: THEME.colors.ivory,
+            boxShadow: THEME.shadows.heavyGlow,
+            border: `1px solid ${THEME.colors.gold}`,
           }}
         >
-          <div className="text-3xl mb-3">💡</div>
-          <h3 style={{ color: '#000000' }} className="text-xl font-bold mb-2">
+          <h3 style={{ color: THEME.colors.navy }} className="text-xl font-serif font-bold mb-2">
             Share Ideas
           </h3>
-          <p style={{ color: '#000000' }}>
+          <p style={{ color: THEME.colors.charcoal }}>
             Post your startup ideas and get feedback from your team
           </p>
         </div>
@@ -38,15 +38,15 @@ export default function Home() {
         <div
           className="p-6 rounded-lg"
           style={{
-            backgroundColor: THEME.colors.cardBg,
-            border: `2px solid ${THEME.colors.deepRed}`,
+            backgroundColor: THEME.colors.ivory,
+            boxShadow: THEME.shadows.heavyGlow,
+            border: `1px solid ${THEME.colors.gold}`,
           }}
         >
-          <div className="text-3xl mb-3">🤝</div>
-          <h3 style={{ color: '#000000' }} className="text-xl font-bold mb-2">
+          <h3 style={{ color: THEME.colors.navy }} className="text-xl font-serif font-bold mb-2">
             Collaborate
           </h3>
-          <p style={{ color: '#000000' }}>
+          <p style={{ color: THEME.colors.charcoal }}>
             Add collaborators and work together on ideas in real-time
           </p>
         </div>
@@ -54,15 +54,15 @@ export default function Home() {
         <div
           className="p-6 rounded-lg"
           style={{
-            backgroundColor: THEME.colors.cardBg,
-            border: `2px solid ${THEME.colors.brightOrange}`,
+            backgroundColor: THEME.colors.ivory,
+            boxShadow: THEME.shadows.heavyGlow,
+            border: `1px solid ${THEME.colors.gold}`,
           }}
         >
-          <div className="text-3xl mb-3">📊</div>
-          <h3 style={{ color: '#000000' }} className="text-xl font-bold mb-2">
+          <h3 style={{ color: THEME.colors.navy }} className="text-xl font-serif font-bold mb-2">
             Track Progress
           </h3>
-          <p style={{ color: '#000000' }}>
+          <p style={{ color: THEME.colors.charcoal }}>
             Monitor your ideas from concept to launch
           </p>
         </div>
@@ -74,8 +74,8 @@ export default function Home() {
           href="/signup"
           className="px-8 py-4 rounded-lg font-bold transition hover:scale-105"
           style={{
-            backgroundColor: THEME.colors.gold,
-            color: '#000000',
+            background: THEME.gradients.button,
+            color: THEME.colors.cream,
           }}
         >
           Get Started
@@ -84,8 +84,9 @@ export default function Home() {
           href="/login"
           className="px-8 py-4 rounded-lg font-bold transition border-2"
           style={{
-            borderColor: THEME.colors.gold,
-            color: '#000000',
+            borderColor: THEME.colors.navy,
+            color: THEME.colors.navy,
+            backgroundColor: THEME.colors.ivory,
           }}
         >
           Login

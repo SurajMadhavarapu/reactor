@@ -66,7 +66,7 @@ export function CreateIdeaForm() {
   };
 
   return (
-    <div style={{ backgroundColor: THEME.colors.darkBg }} className="min-h-screen p-6">
+    <div style={{ background: THEME.gradients.bgGradient }} className="min-h-screen p-6">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <motion.div
@@ -77,17 +77,17 @@ export function CreateIdeaForm() {
           <Link
             href="/ideas"
             className="text-sm mb-4 inline-block hover:opacity-80 transition"
-            style={{ color: '#000000' }}
+            style={{ color: THEME.colors.navy }}
           >
             ← Back to Ideas
           </Link>
           <h1
-            className="text-5xl font-bold mb-3"
-            style={{ color: '#000000' }}
+            className="text-5xl font-serif font-bold mb-3"
+            style={{ color: THEME.colors.navy }}
           >
-            💡 Launch Your Idea
+            Launch Your Idea
           </h1>
-          <p style={{ color: '#000000' }} className="opacity-80">
+          <p style={{ color: THEME.colors.slate }} className="opacity-80">
             Share your startup vision with the community
           </p>
         </motion.div>
@@ -97,8 +97,9 @@ export function CreateIdeaForm() {
           onSubmit={handleSubmit}
           className="p-8 rounded-xl"
           style={{
-            backgroundColor: THEME.colors.white,
+            backgroundColor: THEME.colors.ivory,
             boxShadow: THEME.shadows.heavyGlow,
+            border: `1px solid ${THEME.colors.gold}`,
           }}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -115,7 +116,7 @@ export function CreateIdeaForm() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              ⚠️ {error}
+              {error}
             </motion.div>
           )}
 
@@ -130,7 +131,7 @@ export function CreateIdeaForm() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              ✓ Idea created! Redirecting to your dashboard...
+              Idea created! Redirecting to your dashboard...
             </motion.div>
           )}
 
@@ -138,7 +139,7 @@ export function CreateIdeaForm() {
           <motion.div className="mb-7" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
             <label
               className="block text-sm font-semibold mb-3"
-              style={{ color: THEME.colors.darkSteel }}
+              style={{ color: THEME.colors.navy }}
             >
               Idea Title *
             </label>
@@ -146,17 +147,18 @@ export function CreateIdeaForm() {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-lg focus:outline-none transition"
               style={{
-                backgroundColor: THEME.colors.darkBg,
+                backgroundColor: THEME.colors.cream,
                 boxShadow: THEME.shadows.glow,
-                border: `1px solid ${THEME.colors.borderColor}`,
+                border: `1px solid ${THEME.colors.gold}`,
+                color: THEME.colors.charcoal,
               }}
               placeholder="e.g., AI-powered meal planning app"
               maxLength={VALIDATION.idea.titleMaxLength}
               required
             />
-            <p className="text-xs mt-2 opacity-70" style={{ color: '#000000' }}>
+            <p className="text-xs mt-2" style={{ color: THEME.colors.slate }}>
               {title.length}/{VALIDATION.idea.titleMaxLength} characters
             </p>
           </motion.div>
@@ -165,25 +167,26 @@ export function CreateIdeaForm() {
           <motion.div className="mb-7" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
             <label
               className="block text-sm font-semibold mb-3"
-              style={{ color: THEME.colors.darkSteel }}
+              style={{ color: THEME.colors.navy }}
             >
               Description *
             </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition resize-none"
+              className="w-full px-4 py-3 rounded-lg focus:outline-none transition resize-none"
               style={{
-                backgroundColor: THEME.colors.darkBg,
+                backgroundColor: THEME.colors.cream,
                 boxShadow: THEME.shadows.glow,
-                border: `1px solid ${THEME.colors.borderColor}`,
+                border: `1px solid ${THEME.colors.gold}`,
+                color: THEME.colors.charcoal,
               }}
               placeholder="Describe your startup idea: problem, solution, target market..."
               rows={6}
               maxLength={VALIDATION.idea.descriptionMaxLength}
               required
             />
-            <p className="text-xs mt-2 opacity-70" style={{ color: '#000000' }}>
+            <p className="text-xs mt-2" style={{ color: THEME.colors.slate }}>
               {description.length}/{VALIDATION.idea.descriptionMaxLength} characters
             </p>
           </motion.div>
@@ -192,18 +195,19 @@ export function CreateIdeaForm() {
           <motion.div className="mb-8" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
             <label
               className="block text-sm font-semibold mb-3"
-              style={{ color: THEME.colors.darkSteel }}
+              style={{ color: THEME.colors.navy }}
             >
               Category *
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg text-gray-800 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-lg focus:outline-none transition"
               style={{
-                backgroundColor: THEME.colors.darkBg,
+                backgroundColor: THEME.colors.cream,
                 boxShadow: THEME.shadows.glow,
-                border: `1px solid ${THEME.colors.borderColor}`,
+                border: `1px solid ${THEME.colors.gold}`,
+                color: THEME.colors.charcoal,
               }}
               required
             >
@@ -226,17 +230,17 @@ export function CreateIdeaForm() {
           <motion.button
             type="submit"
             disabled={loading}
-            className="w-full py-4 rounded-lg font-bold text-lg transition"
+            className="w-full py-4 rounded-lg font-bold text-lg transition hover:opacity-90"
             style={{
               background: THEME.gradients.button,
-              color: '#000000',
+              color: THEME.colors.cream,
               opacity: loading ? 0.6 : 1,
               boxShadow: THEME.shadows.heavyGlow,
             }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            {loading ? '⚙️ Creating your idea...' : '🚀 Launch Idea'}
+            {loading ? 'Creating your idea...' : 'Launch Idea'}
           </motion.button>
         </motion.form>
       </div>

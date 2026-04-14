@@ -70,7 +70,7 @@ export default function IdeasPage() {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-            style={{ color: "#000000" }}
+            style={{ color: THEME.colors.charcoal }}
             className="text-3xl"
           >
             ⚙️
@@ -82,7 +82,7 @@ export default function IdeasPage() {
 
   return (
     <DashboardLayout>
-      <div style={{ backgroundColor: THEME.colors.darkBg }} className="min-h-screen p-6">
+      <div style={{ background: THEME.gradients.bgGradient }} className="min-h-screen p-6">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <motion.div
@@ -94,13 +94,13 @@ export default function IdeasPage() {
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h1
-                  className="text-5xl font-bold mb-2"
-                  style={{ color: '#000000' }}
+                  className="text-5xl font-serif font-bold mb-2"
+                  style={{ color: THEME.colors.navy }}
                 >
-                  💡 Startup Ideas
+                  Startup Ideas
                 </h1>
-                <p style={{ color: '#000000' }} className="text-sm font-semibold">
-                  ✨ Transform ideas into reality
+                <p style={{ color: THEME.colors.forestGreen }} className="text-sm font-semibold">
+                  Transform ideas into reality
                 </p>
               </div>
               <Link href="/ideas/new">
@@ -109,15 +109,15 @@ export default function IdeasPage() {
                   whileTap={{ scale: 0.95 }}
                   className="px-8 py-3 rounded-lg font-bold transition"
                   style={{
-                    backgroundColor: THEME.colors.darkSteel,
-                    color: "#000000",
+                    background: THEME.gradients.button,
+                    color: THEME.colors.cream,
                   }}
                 >
-                  ✨ New Idea
+                  New Idea
                 </motion.button>
               </Link>
             </div>
-            <p style={{ color: THEME.colors.darkSteel }} className="text-sm opacity-80">
+            <p style={{ color: THEME.colors.slate }} className="text-sm opacity-80">
               Discover and collaborate on innovative startup concepts from our community
             </p>
           </motion.div>
@@ -132,14 +132,15 @@ export default function IdeasPage() {
             <div className="relative">
               <input
                 type="text"
-                placeholder="🔍 Search ideas..."
+                placeholder="Search ideas..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg focus:outline-none transition"
                 style={{
-                  backgroundColor: "#000000",
+                  backgroundColor: THEME.colors.cream,
                   boxShadow: THEME.shadows.glow,
-                  color: '#000000',
+                  color: THEME.colors.charcoal,
+                  border: `1px solid ${THEME.colors.gold}`,
                 }}
               />
             </div>
@@ -148,12 +149,13 @@ export default function IdeasPage() {
               onChange={(e) => setFilterCategory(e.target.value)}
               className="px-4 py-3 rounded-lg focus:outline-none transition"
               style={{
-                backgroundColor: "#000000",
+                backgroundColor: THEME.colors.cream,
                 boxShadow: THEME.shadows.glow,
-                color: '#000000',
+                color: THEME.colors.charcoal,
+                border: `1px solid ${THEME.colors.gold}`,
               }}
             >
-              <option value="">🎯 All Categories</option>
+              <option value="">All Categories</option>
               <option value="SaaS">SaaS</option>
               <option value="Mobile App">Mobile App</option>
               <option value="Web App">Web App</option>
@@ -180,7 +182,7 @@ export default function IdeasPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              ⚠️ {error}
+              {error}
             </motion.div>
           )}
 
@@ -216,22 +218,22 @@ export default function IdeasPage() {
             <motion.div
               className="text-center py-16 rounded-xl"
               style={{
-                backgroundColor: "#000000",
-                border: `3px dashed ${THEME.colors.borderColor}`,
+                backgroundColor: THEME.colors.ivory,
+                border: `3px dashed ${THEME.colors.gold}`,
                 boxShadow: THEME.shadows.heavyGlow,
               }}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
             >
               <p
-                className="text-2xl mb-4 font-bold"
+                className="text-2xl mb-4 font-serif font-bold"
                 style={{
-                  color: '#000000',
+                  color: THEME.colors.navy,
                 }}
               >
-                {searchTerm || filterCategory ? '🔍 No ideas match your search' : '💡 No ideas yet'}
+                {searchTerm || filterCategory ? 'No ideas match your search' : 'No ideas yet'}
               </p>
-              <p style={{ color: '#000000' }} className="text-sm mb-8 opacity-70">
+              <p style={{ color: THEME.colors.charcoal }} className="text-sm mb-8 opacity-70">
                 {searchTerm || filterCategory
                   ? 'Try adjusting your search or filter criteria'
                   : 'Be the first to share a revolutionary startup idea!'}
@@ -241,12 +243,12 @@ export default function IdeasPage() {
                   whileHover={{ scale: 1.08 }}
                   className="px-8 py-3 rounded-lg font-bold inline-block transition"
                   style={{
-                    backgroundColor: THEME.colors.darkSteel,
-                    color: "#000000",
+                    background: THEME.gradients.button,
+                    color: THEME.colors.cream,
                     boxShadow: THEME.shadows.heavyGlow,
                   }}
                 >
-                  🚀 Create First Idea
+                  Create First Idea
                 </motion.button>
               </Link>
             </motion.div>

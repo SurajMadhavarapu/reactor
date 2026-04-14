@@ -49,13 +49,17 @@ export default function InteractiveReactor() {
         style={{
           fontSize: '120px',
           fontWeight: 'bold',
-          color: THEME.colors.darkSteel,
+          fontFamily: 'var(--font-playfair)',
+          background: THEME.gradients.textGradient,
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
           transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
           transition: 'text-shadow 0.1s ease-out, transform 0.05s ease-out',
           textShadow: `
-            ${Math.cos((rotation.y * Math.PI) / 180) * 20}px ${Math.sin((rotation.x * Math.PI) / 180) * 20}px 30px rgba(0, 0, 0, 0.3),
-            ${Math.cos((rotation.y * Math.PI) / 180) * 10}px ${Math.sin((rotation.x * Math.PI) / 180) * 10}px 15px rgba(255, 140, 0, 0.2),
-            0 0 40px rgba(255, 140, 0, 0.1)
+            ${Math.cos((rotation.y * Math.PI) / 180) * 20}px ${Math.sin((rotation.x * Math.PI) / 180) * 20}px 30px rgba(27, 38, 59, 0.3),
+            ${Math.cos((rotation.y * Math.PI) / 180) * 10}px ${Math.sin((rotation.x * Math.PI) / 180) * 10}px 15px rgba(197, 168, 128, 0.2),
+            0 0 40px rgba(197, 168, 128, 0.1)
           `,
           willChange: 'transform, text-shadow',
         }}

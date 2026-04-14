@@ -1,35 +1,42 @@
-// Cream & White Clean Theme
+// Old Money Aesthetic Theme
 export const THEME = {
   colors: {
-    gold: '#F5F5F0',           // Cream/off-white
-    deepRed: '#E8E8E3',        // Light cream
-    darkSteel: '#000000',      // Pure black text
-    brightOrange: '#000000',   // Pure black text
-    white: '#FFFFFF',          // Pure white
-    darkBg: '#FAF9F6',         // Cream background
-    cardBg: '#FFFFFF',         // White cards
-    borderColor: '#E0DFD9',    // Light gray border
+    // Primary palette
+    navy: '#1B263B',           // Deep navy blue - primary brand color
+    forestGreen: '#2D4A3E',    // Rich forest green
+    burgundy: '#6B1C2F',       // Deep burgundy red
+    cream: '#F5F1E8',          // Warm cream (backgrounds)
+    gold: '#C5A880',           // Muted gold (accents)
+    charcoal: '#3C3C3C',       // Charcoal gray (text)
+
+    // Supporting colors
+    ivory: '#FFFFF0',          // Ivory (cards)
+    leather: '#8B4513',        // Leather brown (warm accents)
+    slate: '#708090',          // Slate gray (secondary text)
+    white: '#FFFFFF',
+
+    // Functional
     success: '#4CAF50',
     error: '#F44336',
     warning: '#FF9800',
   },
   gradients: {
-    hero: 'linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 100%)',
-    card: 'linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(250, 249, 246, 0.5) 100%)',
-    cardHover: 'linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 240, 235, 0.8) 100%)',
-    button: 'linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 100%)',
-    buttonHover: 'linear-gradient(135deg, #1A1A1A 0%, #333333 100%)',
-    bgGradient: 'linear-gradient(180deg, #FAF9F6 0%, #F5F5F0 100%)',
-    accentGradient: 'linear-gradient(135deg, #2C2C2C 0%, #555555 100%)',
-    progressGradient: 'linear-gradient(90deg, #333333 0%, #555555 100%)',
-    textGradient: 'linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 100%)',
-    bordergradient: 'linear-gradient(135deg, #2C2C2C 0%, #4A4A4A 100%)',
+    hero: 'linear-gradient(135deg, #1B263B 0%, #2D4A3E 100%)',
+    card: 'linear-gradient(135deg, #F5F1E8 0%, #FFFFF0 100%)',
+    cardHover: 'linear-gradient(135deg, #FFFFF0 0%, #F5F1E8 100%)',
+    button: 'linear-gradient(135deg, #1B263B 0%, #3C3C3C 100%)',
+    buttonHover: 'linear-gradient(135deg, #2D4A3E 0%, #1B263B 100%)',
+    bgGradient: 'linear-gradient(180deg, #F5F1E8 0%, #E8E4DC 100%)',
+    accentGradient: 'linear-gradient(135deg, #6B1C2F 0%, #8B4513 100%)',
+    progressGradient: 'linear-gradient(90deg, #C5A880 0%, #8B4513 100%)',
+    textGradient: 'linear-gradient(135deg, #1B263B 0%, #2D4A3E 100%)',
+    borderGradient: 'linear-gradient(135deg, #C5A880 0%, #8B4513 100%)',
   },
   shadows: {
-    glow: '0 4px 12px rgba(0, 0, 0, 0.08)',
-    heavyGlow: '0 8px 24px rgba(0, 0, 0, 0.12)',
-    card: '0 2px 8px rgba(0, 0, 0, 0.06)',
-    goldShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
+    glow: '0 4px 12px rgba(27, 38, 59, 0.15)',
+    heavyGlow: '0 8px 24px rgba(27, 38, 59, 0.2)',
+    card: '0 2px 8px rgba(27, 38, 59, 0.08)',
+    goldShadow: '0 4px 16px rgba(197, 168, 128, 0.3)',
   },
   transitions: {
     smooth: '0.3s ease-in-out',

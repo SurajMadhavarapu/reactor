@@ -38,23 +38,23 @@ export function IdeaCard({
         <div
           className="p-6 rounded-xl cursor-pointer transition overflow-hidden relative group"
           style={{
-            backgroundColor: THEME.colors.white,
+            backgroundColor: THEME.colors.ivory,
             boxShadow: THEME.shadows.heavyGlow,
-            border: `1px solid ${THEME.colors.borderColor}`,
+            border: `1px solid ${THEME.colors.gold}`,
           }}
         >
           {/* Title */}
           <h3
-            className="text-xl font-bold mb-3 line-clamp-2"
+            className="text-xl font-serif font-bold mb-3 line-clamp-2"
             style={{
-              color: '#000000',
+              color: THEME.colors.navy,
             }}
           >
             {title}
           </h3>
 
           {/* Description */}
-          <p className="text-sm mb-4 line-clamp-2 opacity-70" style={{ color: '#000000' }}>
+          <p className="text-sm mb-4 line-clamp-2" style={{ color: THEME.colors.charcoal }}>
             {description}
           </p>
 
@@ -63,8 +63,8 @@ export function IdeaCard({
             <span
               className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold"
               style={{
-                backgroundColor: THEME.colors.darkBg,
-                color: '#000000',
+                backgroundColor: THEME.colors.navy,
+                color: THEME.colors.cream,
               }}
             >
               {category}
@@ -76,7 +76,7 @@ export function IdeaCard({
             <div
               className="h-2 rounded-full overflow-hidden"
               style={{
-                backgroundColor: THEME.colors.borderColor,
+                backgroundColor: `${THEME.colors.gold}40`,
               }}
             >
               <motion.div
@@ -88,7 +88,7 @@ export function IdeaCard({
                 transition={{ duration: 0.8, ease: 'easeInOut' }}
               />
             </div>
-            <p className="text-xs mt-2" style={{ color: '#000000' }}>
+            <p className="text-xs mt-2 font-medium" style={{ color: THEME.colors.slate }}>
               {progress.charAt(0).toUpperCase() + progress.slice(1)} · {progressPercent.toFixed(0)}%
             </p>
           </div>
@@ -97,22 +97,22 @@ export function IdeaCard({
           <div
             className="flex items-center justify-between text-sm border-t pt-4"
             style={{
-              borderColor: THEME.colors.borderColor,
+              borderColor: `${THEME.colors.gold}60`,
             }}
           >
-            <span style={{ color: '#000000' }}>
-              By <strong>{ownerName}</strong>
+            <span style={{ color: THEME.colors.charcoal }}>
+              By <strong style={{ color: THEME.colors.navy }}>{ownerName}</strong>
             </span>
 
             <div className="flex gap-4">
               <motion.span
-                style={{ color: '#000000' }}
+                style={{ color: THEME.colors.burgundy }}
                 whileHover={{ scale: 1.1 }}
               >
-                ❤️ {upvotes}
+                ♥ {upvotes}
               </motion.span>
               <motion.span
-                style={{ color: '#000000' }}
+                style={{ color: THEME.colors.forestGreen }}
                 whileHover={{ scale: 1.1 }}
               >
                 💬 {commentCount}

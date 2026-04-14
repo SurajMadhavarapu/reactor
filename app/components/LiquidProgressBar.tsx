@@ -67,7 +67,7 @@ export function LiquidProgressBar({
       <div
         className="relative h-16 rounded-lg overflow-hidden cursor-pointer transition"
         style={{
-          backgroundColor: THEME.colors.cardBg,
+          backgroundColor: THEME.colors.ivory,
           border: `2px solid ${THEME.colors.gold}`,
           boxShadow: isHovering ? THEME.shadows.heavyGlow : THEME.shadows.glow,
         }}
@@ -76,7 +76,7 @@ export function LiquidProgressBar({
         <motion.div
           className="absolute h-full"
           style={{
-            background: `linear-gradient(90deg, ${THEME.colors.gold}, ${THEME.colors.brightOrange})`,
+            background: `linear-gradient(90deg, ${THEME.colors.gold}, ${THEME.colors.leather})`,
             left: 0,
           }}
           animate={{
@@ -125,16 +125,16 @@ export function LiquidProgressBar({
               >
                 {/* Indicator Circle */}
                 <motion.div
-                  className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs cursor-pointer transition z-10"
+                  className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs cursor-pointer transition z-10 font-serif"
                   animate={{
                     scale: isCurrentStage ? 1.3 : 1,
                     boxShadow: isCurrentStage
-                      ? `0 0 20px ${THEME.colors.gold}, 0 0 40px ${THEME.colors.brightOrange}`
+                      ? `0 0 20px ${THEME.colors.gold}, 0 0 40px ${THEME.colors.leather}`
                       : 'none',
                   }}
                   style={{
-                    backgroundColor: isActive ? THEME.colors.deepRed : THEME.colors.darkSteel,
-                    color: THEME.colors.gold,
+                    backgroundColor: isActive ? THEME.colors.navy : THEME.colors.charcoal,
+                    color: THEME.colors.cream,
                     border: `2px solid ${THEME.colors.gold}`,
                   }}
                 >
@@ -143,10 +143,10 @@ export function LiquidProgressBar({
 
                 {/* Stage Label */}
                 <motion.div
-                  className="text-xs font-semibold mt-2 whitespace-nowrap"
+                  className="text-xs font-serif font-semibold mt-2 whitespace-nowrap"
                   animate={{
-                    color: isCurrentStage ? '#000000' : isActive ? '#000000' : '#000000',
-                    textShadow: isCurrentStage ? `0 0 10px #000000` : 'none',
+                    color: isCurrentStage ? THEME.colors.navy : isActive ? THEME.colors.navy : THEME.colors.slate,
+                    textShadow: isCurrentStage ? `0 0 10px ${THEME.colors.gold}` : 'none',
                   }}
                 >
                   {stage.charAt(0).toUpperCase() + stage.slice(1)}
@@ -180,11 +180,11 @@ export function LiquidProgressBar({
 
       {/* Status Text */}
       <div className="mt-4 text-center">
-        <p style={{ color: '#000000' }} className="text-sm font-semibold">
+        <p style={{ color: THEME.colors.navy }} className="text-sm font-serif font-semibold">
           Stage: {currentStage.toUpperCase()} • {progressPercent.toFixed(0)}% Complete
         </p>
         {interactive && (
-          <p style={{ color: '#000000' }} className="text-xs mt-1">
+          <p style={{ color: THEME.colors.slate }} className="text-xs mt-1">
             Click to update progress (forward only)
           </p>
         )}

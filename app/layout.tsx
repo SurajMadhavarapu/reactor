@@ -1,18 +1,25 @@
 'use client';
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/app/contexts/AuthContext";
 import { THEME } from "@/app/utils/constants";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -24,13 +31,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${playfair.variable} ${cormorant.variable} ${inter.variable} h-full antialiased`}
     >
       <head>
         <title>REACTOR - Startup Ideas Platform</title>
         <meta name="description" content="Share, discuss, and collaborate on startup ideas with the power of REACTOR" />
       </head>
-      <body className="min-h-full flex flex-col" style={{ backgroundColor: THEME.colors.darkBg, color: '#000000' }}>
+      <body className="min-h-full flex flex-col" style={{ backgroundColor: THEME.colors.cream, color: THEME.colors.charcoal }}>
         <AuthProvider>
           {children}
         </AuthProvider>

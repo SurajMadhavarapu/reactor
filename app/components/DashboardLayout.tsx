@@ -29,11 +29,11 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: THEME.colors.darkBg }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: THEME.colors.cream }}>
         <div
-          className="text-2xl font-bold"
+          className="text-2xl font-bold font-serif"
           style={{
-            color: THEME.colors.darkSteel,
+            color: THEME.colors.navy,
             animation: 'pulse 2s infinite',
           }}
         >
@@ -48,32 +48,32 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div style={{ backgroundColor: THEME.colors.darkBg }}>
+    <div style={{ backgroundColor: THEME.colors.cream }}>
       {/* Navigation Bar */}
       <nav
         className="flex justify-between items-center px-6 py-4"
         style={{
-          backgroundColor: THEME.colors.darkSteel,
+          backgroundColor: THEME.colors.navy,
           borderBottom: `2px solid ${THEME.colors.gold}`,
         }}
       >
         <Link href="/dashboard" className="flex items-center gap-2">
-          <h1 className="text-2xl font-bold" style={{ color: '#000000' }}>
+          <h1 className="text-2xl font-bold font-serif" style={{ color: THEME.colors.gold }}>
             REACTOR
           </h1>
         </Link>
 
         <div className="flex items-center gap-6">
-          <span style={{ color: '#000000' }}>
+          <span style={{ color: THEME.colors.cream }}>
             Welcome, <strong>{user?.displayName || user?.email}</strong>
           </span>
 
           <button
             onClick={handleLogout}
-            className="px-4 py-2 rounded font-bold transition"
+            className="px-4 py-2 rounded font-bold transition hover:opacity-90"
             style={{
-              backgroundColor: THEME.colors.deepRed,
-              color: '#000000',
+              backgroundColor: THEME.colors.burgundy,
+              color: THEME.colors.cream,
             }}
           >
             Logout
