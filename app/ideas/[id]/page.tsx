@@ -163,12 +163,8 @@ export default function IdeaDetailPage() {
   const handleProgressUpdate = async (newProgress: string) => {
     if (!user || !idea) return;
 
-    const currentIndex = PROGRESS_STAGES.indexOf(idea.progress as any);
-    const newIndex = PROGRESS_STAGES.indexOf(newProgress as any);
-
-    if (newIndex <= currentIndex) {
-      setError('Progress can only move forward');
-      return;
+    if (idea.progress === newProgress) {
+      return; // No change
     }
 
     try {
@@ -358,15 +354,14 @@ export default function IdeaDetailPage() {
                       <button
                         key={stage}
                         onClick={() => handleProgressUpdate(stage)}
-                        disabled={PROGRESS_STAGES.indexOf(stage) <= progressIndex}
+                        disabled={stage === idea.progress}
                         className="px-4 py-2 rounded-lg text-sm font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
                         style={{
                           background:
-                            PROGRESS_STAGES.indexOf(stage) <= progressIndex
+                            stage === idea.progress
                               ? `${THEME.colors.gold}60`
                               : THEME.gradients.button,
-                          color:
-                            PROGRESS_STAGES.indexOf(stage) <= progressIndex ? THEME.colors.cream : THEME.colors.cream,
+                          color: THEME.colors.cream,
                         }}
                       >
                         {stage.charAt(0).toUpperCase() + stage.slice(1)}
