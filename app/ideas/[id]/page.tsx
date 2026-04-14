@@ -416,7 +416,7 @@ export default function IdeaDetailPage() {
             </motion.div>
           </div>
 
-          {/* Comments Section */}
+          {/* Updates & Assignments Chat Section */}
           <motion.div
             className="p-8 rounded-xl backdrop-blur-sm"
             style={{
@@ -429,15 +429,58 @@ export default function IdeaDetailPage() {
             transition={{ delay: 0.3 }}
           >
             <h2 style={{ color: THEME.colors.navy }} className="text-xl font-serif font-bold mb-6">
-              Discussion ({comments.length})
+              Updates & Work Assignments ({comments.length})
             </h2>
 
-            {/* Add Comment Form */}
-            <form onSubmit={handleAddComment} className="mb-8">
+            {/* Chat Display - Messages */}
+            <div
+              className="mb-8 p-4 rounded-lg space-y-3 overflow-y-auto"
+              style={{
+                backgroundColor: THEME.colors.cream,
+                border: `1px solid ${THEME.colors.gold}40`,
+                minHeight: '300px',
+                maxHeight: '400px',
+              }}
+            >
+              {comments.length > 0 ? (
+                comments.map((comment, index) => (
+                  <motion.div
+                    key={comment.id}
+                    className="rounded-lg p-3"
+                    style={{
+                      backgroundColor: THEME.colors.ivory,
+                      borderLeft: `4px solid ${THEME.colors.gold}`,
+                    }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <div className="flex items-start justify-between mb-1">
+                      <p style={{ color: THEME.colors.navy }} className="font-serif font-semibold text-sm">
+                        {comment.userName}
+                      </p>
+                      <p style={{ color: THEME.colors.slate }} className="text-xs opacity-50">
+                        {comment.createdAt?.toDate?.()?.toLocaleDateString?.() || 'Recently'}
+                      </p>
+                    </div>
+                    <p style={{ color: THEME.colors.charcoal }} className="text-sm opacity-90 whitespace-pre-wrap">
+                      {comment.content}
+                    </p>
+                  </motion.div>
+                ))
+              ) : (
+                <p style={{ color: THEME.colors.charcoal }} className="text-center py-12 opacity-50">
+                  No updates yet. Start collaborating by posting work assignments and progress updates!
+                </p>
+              )}
+            </div>
+
+            {/* Chat Input */}
+            <form onSubmit={handleAddComment} className="border-t pt-6" style={{ borderColor: `${THEME.colors.gold}40` }}>
               <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
-                placeholder="Share your thoughts..."
+                placeholder="Post an update or work assignment..."
                 className="w-full px-4 py-3 rounded-lg focus:outline-none transition resize-none"
                 style={{
                   backgroundColor: THEME.colors.cream,
@@ -445,7 +488,7 @@ export default function IdeaDetailPage() {
                   boxShadow: `inset 0 0 10px ${THEME.colors.gold}40`,
                   color: THEME.colors.charcoal,
                 }}
-                rows={3}
+                rows={2}
                 maxLength={VALIDATION.comment.maxLength}
               />
               <div className="flex items-center justify-between mt-3">
@@ -461,46 +504,11 @@ export default function IdeaDetailPage() {
                     color: THEME.colors.cream,
                   }}
                 >
-                  Post Comment
+                  Send Update
                 </motion.button>
               </div>
               {commentError && <p style={{ color: THEME.colors.error }} className="text-sm mt-2">{commentError}</p>}
             </form>
-
-            {/* Comments List */}
-            <div className="space-y-4">
-              {comments.length > 0 ? (
-                comments.map((comment, index) => (
-                  <motion.div
-                    key={comment.id}
-                    className="p-4 rounded-lg"
-                    style={{
-                      background: THEME.colors.cream,
-                      border: `1px solid ${THEME.colors.gold}60`,
-                    }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <p style={{ color: THEME.colors.navy }} className="font-serif font-semibold text-sm">
-                        {comment.userName}
-                      </p>
-                      <p style={{ color: THEME.colors.slate }} className="text-xs opacity-50">
-                        {comment.createdAt?.toDate?.()?.toLocaleDateString?.() || 'Recently'}
-                      </p>
-                    </div>
-                    <p style={{ color: THEME.colors.charcoal }} className="text-sm opacity-90">
-                      {comment.content}
-                    </p>
-                  </motion.div>
-                ))
-              ) : (
-                <p style={{ color: THEME.colors.charcoal }} className="text-center py-8 opacity-50">
-                  No comments yet. Be the first to share your thoughts!
-                </p>
-              )}
-            </div>
           </motion.div>
         </div>
       </div>
