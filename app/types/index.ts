@@ -27,6 +27,8 @@ export interface Idea {
   createdAt: Date;
   updatedAt: Date;
   progressHistory: ProgressChange[];
+  pin: string;
+  pinVerified: { [userId: string]: boolean };
 }
 
 export interface Collaborator {

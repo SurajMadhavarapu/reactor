@@ -25,6 +25,9 @@ export async function createIdea(
   category: string
 ) {
   try {
+    // Generate random 6-digit PIN
+    const pin = String(Math.floor(100000 + Math.random() * 900000));
+
     const ideasRef = collection(db, 'ideas');
     const docRef = await addDoc(ideasRef, {
       title,
@@ -36,6 +39,8 @@ export async function createIdea(
       upvotes: 0,
       upvoters: [],
       commentCount: 0,
+      pin,
+      pinVerified: { [userId]: true },
       collaborators: [
         {
           userId,
@@ -212,9 +217,39 @@ export async function addCollaborator(
         role,
         joinedAt: new Date(),
       }),
+      pinVerified: {
+        [userId]: true,
+      },
     });
   } catch (error) {
     console.error('Error adding collaborator:', error);
+    throw error;
+  }
+}
+
+// VERIFY IDEA PIN
+export async function verifyIdeaPin(ideaId: string, userId: string, enteredPin: string) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    const snapshot = await getDoc(ideaRef);
+    
+    if (!snapshot.exists()) {
+      throw new Error('Idea not found');
+    }
+
+    const idea = snapshot.data();
+    if (idea.pin !== enteredPin) {
+      throw new Error('Invalid PIN');
+    }
+
+    // Mark PIN as verified for this user
+    await updateDoc(ideaRef, {
+      [`pinVerified.${userId}`]: true,
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Error verifying PIN:', error);
     throw error;
   }
 }

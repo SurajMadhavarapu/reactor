@@ -12,6 +12,7 @@ import {
   updateIdeaProgress,
 } from '@/app/utils/firebaseUtils';
 import { DashboardLayout } from '@/app/components/DashboardLayout';
+import { PinVerification } from '@/app/components/PinVerification';
 import { THEME, PROGRESS_STAGES, ERROR_MESSAGES, VALIDATION } from '@/app/utils/constants';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -28,6 +29,8 @@ interface Idea {
   upvoters: string[];
   commentCount: number;
   collaborators: any[];
+  pin?: string;
+  pinVerified?: { [userId: string]: boolean };
 }
 
 interface Comment {
@@ -50,6 +53,7 @@ export default function IdeaDetailPage() {
   const [error, setError] = useState('');
   const [commentError, setCommentError] = useState('');
   const [isUpvoted, setIsUpvoted] = useState(false);
+  const [pinVerified, setPinVerified] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -69,8 +73,15 @@ export default function IdeaDetailPage() {
       setIdea(fetchedIdea);
       setIsUpvoted(user ? fetchedIdea.upvoters?.includes(user.uid) : false);
 
-      const fetchedComments = await getComments(ideaId);
-      setComments(fetchedComments as Comment[]);
+      // Check if user has PIN verified or is owner
+      const isOwner = user?.uid === fetchedIdea.ownerId;
+      const userVerified = fetchedIdea.pinVerified?.[user?.uid || ''] || false;
+      
+      if (isOwner || userVerified) {
+        setPinVerified(true);
+        const fetchedComments = await getComments(ideaId);
+        setComments(fetchedComments as Comment[]);
+      }
     } catch (err: any) {
       setError(err.message || ERROR_MESSAGES.network.error);
     } finally {
@@ -184,9 +195,14 @@ export default function IdeaDetailPage() {
     );
   }
 
+  // Check if PIN verification is needed
+  const isOwner = user?.uid === idea.ownerId;
+  if (!pinVerified && !isOwner) {
+    return <PinVerification ideaId={ideaId} userId={user?.uid || ''} onSuccess={() => { setPinVerified(true); loadIdea(); }} />;
+  }
+
   const progressIndex = PROGRESS_STAGES.indexOf(idea.progress as any);
   const progressPercent = ((progressIndex + 1) / PROGRESS_STAGES.length) * 100;
-  const isOwner = user?.uid === idea.ownerId;
 
   return (
     <DashboardLayout>
@@ -364,6 +380,39 @@ export default function IdeaDetailPage() {
                   ))}
                 </div>
               </div>
+
+              {/* PIN Card (Owner Only) */}
+              {isOwner && (
+                <div
+                  className="p-6 rounded-xl backdrop-blur-sm"
+                  style={{
+                    background: THEME.gradients.card,
+                    border: `2px solid ${THEME.colors.gold}`,
+                    boxShadow: THEME.shadows.goldShadow,
+                  }}
+                >
+                  <h3 style={{ color: THEME.colors.navy }} className="text-sm font-serif font-bold mb-4">
+                    PIN PROTECTION
+                  </h3>
+                  <p style={{ color: THEME.colors.charcoal }} className="text-xs mb-3 opacity-80">
+                    Share this 6-digit PIN with people you want to invite:
+                  </p>
+                  <div
+                    className="p-4 rounded-lg text-center font-mono text-2xl font-bold tracking-widest"
+                    style={{
+                      backgroundColor: THEME.colors.cream,
+                      border: `2px solid ${THEME.colors.gold}`,
+                      color: THEME.colors.navy,
+                      letterSpacing: '0.3em',
+                    }}
+                  >
+                    {idea.pin}
+                  </div>
+                  <p style={{ color: THEME.colors.slate }} className="text-xs mt-3 opacity-70">
+                    Only people with this PIN can view idea details
+                  </p>
+                </div>
+              )}
             </motion.div>
           </div>
 
