@@ -90,8 +90,8 @@ export function SignupForm() {
       setSuccess(true);
       setLockoutTime(null);
       setTimeout(() => {
-        window.location.href = '/verify-email';
-      }, 2000);
+        window.location.href = '/dashboard';
+      }, 500);
     } catch (err: any) {
       if (err.code === 'auth/email-already-in-use') {
         setError(ERROR_MESSAGES.auth.emailExists);
@@ -144,7 +144,7 @@ export function SignupForm() {
                 borderLeft: `3px solid ${THEME.colors.success}`,
               }}
             >
-              Account created! Redirecting to email verification...
+              Account created! Redirecting to dashboard...
             </div>
           )}
 
