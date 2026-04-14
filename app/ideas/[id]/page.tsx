@@ -15,6 +15,7 @@ import {
 } from '@/app/utils/firebaseUtils';
 import { DashboardLayout } from '@/app/components/DashboardLayout';
 import { PinVerification } from '@/app/components/PinVerification';
+import { NowPlaying } from '@/app/components/NowPlaying';
 import { THEME, PROGRESS_STAGES, ERROR_MESSAGES, VALIDATION } from '@/app/utils/constants';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -412,7 +413,10 @@ export default function IdeaDetailPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              {/* Music Mood Card */}
+              {/* Now Playing Widget */}
+              <NowPlaying />
+
+              {/* Pulse - Music Mood Card */}
               <div
                 className="p-6 rounded-xl backdrop-blur-sm"
                 style={{
@@ -422,7 +426,7 @@ export default function IdeaDetailPage() {
                 }}
               >
                 <h3 style={{ color: THEME.colors.navy }} className="text-sm font-serif font-bold mb-4">
-                  WORKING VIBE
+                  ❤️ PULSE - VIBE
                 </h3>
                 <p style={{ color: THEME.colors.charcoal }} className="text-xs mb-4 opacity-80">
                   What music are you working to?
