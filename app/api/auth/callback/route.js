@@ -53,7 +53,8 @@ export async function GET(request) {
 
     const tokenData = await tokenResponse.json();
 
-    const response = NextResponse.redirect(new URL('/', request.url));
+    // Redirect back to dashboard instead of home page to stay authenticated
+    const response = NextResponse.redirect(new URL('/dashboard', request.url));
     response.cookies.set('spotify_access_token', tokenData.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
