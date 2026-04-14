@@ -59,6 +59,9 @@ export default function IdeaDetailPage() {
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [pinVerified, setPinVerified] = useState(false);
   const [updatingRole, setUpdatingRole] = useState<string | null>(null);
+  const [editingRoleFor, setEditingRoleFor] = useState<string | null>(null);
+  const [customRoleInput, setCustomRoleInput] = useState('');
+
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -200,11 +203,21 @@ export default function IdeaDetailPage() {
       );
       setIdea({ ...idea, collaborators: updatedCollaborators });
       setError('');
+      setEditingRoleFor(null);
     } catch (err: any) {
       setError(err.message || 'Failed to update role');
     } finally {
       setUpdatingRole(null);
     }
+  };
+
+  const handleCustomRoleSubmit = (collaboratorId: string) => {
+    if (!customRoleInput.trim()) {
+      setError('Role name cannot be empty');
+      return;
+    }
+    handleRoleUpdate(collaboratorId, customRoleInput.trim());
+    setCustomRoleInput('');
   };
 
   const handleLeaveIdea = async () => {
@@ -440,23 +453,85 @@ export default function IdeaDetailPage() {
                           {collab.username}
                         </span>
                         {isOwner ? (
-                          <select
-                            value={collab.role}
-                            onChange={(e) => handleRoleUpdate(collab.userId, e.target.value)}
-                            disabled={updatingRole === collab.userId}
-                            className="text-xs px-2 py-1 rounded font-medium focus:outline-none transition"
-                            style={{
-                              background: `${THEME.colors.gold}40`,
-                              color: THEME.colors.navy,
-                              border: `1px solid ${THEME.colors.gold}`,
-                              opacity: updatingRole === collab.userId ? 0.6 : 1,
-                              cursor: updatingRole === collab.userId ? 'not-allowed' : 'pointer',
-                            }}
-                          >
-                            <option value="owner">Owner</option>
-                            <option value="collaborator">Collaborator</option>
-                            <option value="viewer">Viewer</option>
-                          </select>
+                          editingRoleFor === collab.userId ? (
+                            // Custom role input mode
+                            <div className="flex gap-1 items-center">
+                              <input
+                                type="text"
+                                placeholder="e.g., Designer"
+                                value={customRoleInput}
+                                onChange={(e) => setCustomRoleInput(e.target.value)}
+                                onKeyPress={(e) => {
+                                  if (e.key === 'Enter') {
+                                    handleCustomRoleSubmit(collab.userId);
+                                  }
+                                }}
+                                className="text-xs px-2 py-1 rounded font-medium focus:outline-none flex-1"
+                                style={{
+                                  background: THEME.colors.cream,
+                                  color: THEME.colors.navy,
+                                  border: `1px solid ${THEME.colors.gold}`,
+                                }}
+                                autoFocus
+                              />
+                              <button
+                                onClick={() => handleCustomRoleSubmit(collab.userId)}
+                                disabled={updatingRole === collab.userId}
+                                className="text-xs px-2 py-1 rounded font-medium transition"
+                                style={{
+                                  background: THEME.colors.gold,
+                                  color: THEME.colors.navy,
+                                  opacity: updatingRole === collab.userId ? 0.6 : 1,
+                                  cursor: updatingRole === collab.userId ? 'not-allowed' : 'pointer',
+                                }}
+                              >
+                                ✓
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setEditingRoleFor(null);
+                                  setCustomRoleInput('');
+                                }}
+                                className="text-xs px-2 py-1 rounded font-medium transition"
+                                style={{
+                                  background: `${THEME.colors.burgundy}40`,
+                                  color: THEME.colors.burgundy,
+                                  border: `1px solid ${THEME.colors.burgundy}`,
+                                }}
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          ) : (
+                            // Dropdown mode
+                            <div className="flex gap-1 items-center">
+                              <select
+                                value={collab.role}
+                                onChange={(e) => {
+                                  if (e.target.value === 'custom') {
+                                    setEditingRoleFor(collab.userId);
+                                    setCustomRoleInput(collab.role);
+                                  } else {
+                                    handleRoleUpdate(collab.userId, e.target.value);
+                                  }
+                                }}
+                                disabled={updatingRole === collab.userId}
+                                className="text-xs px-2 py-1 rounded font-medium focus:outline-none transition"
+                                style={{
+                                  background: `${THEME.colors.gold}40`,
+                                  color: THEME.colors.navy,
+                                  border: `1px solid ${THEME.colors.gold}`,
+                                  opacity: updatingRole === collab.userId ? 0.6 : 1,
+                                  cursor: updatingRole === collab.userId ? 'not-allowed' : 'pointer',
+                                }}
+                              >
+                                <option value="owner">Owner</option>
+                                <option value="collaborator">Collaborator</option>
+                                <option value="viewer">Viewer</option>
+                                <option value="custom">Custom Role...</option>
+                              </select>
+                            </div>
+                          )
                         ) : (
                           <span
                             className="text-xs px-2 py-1 rounded font-medium"
