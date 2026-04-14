@@ -9,6 +9,16 @@ import { ERROR_MESSAGES, THEME } from '@/app/utils/constants';
 import { checkAuthRateLimit, getRemainingTime } from '@/app/utils/rateLimiter';
 import Link from 'next/link';
 
+// Helper function to add timeout to Firebase calls
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number = 10000): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error('Firebase request timed out. Check your internet and Firebase credentials.')), timeoutMs)
+    ),
+  ]);
+}
+
 export function SignupForm() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -66,26 +76,35 @@ export function SignupForm() {
     setLoading(true);
 
     try {
-      // Create user
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      // Create user with 10 second timeout
+      const userCredential = await withTimeout(
+        createUserWithEmailAndPassword(auth, email, password),
+        10000
+      );
       const user = userCredential.user;
 
-      // Update profile
-      await updateProfile(user, {
-        displayName: sanitizeInput(displayName || username),
-      });
+      // Update profile with timeout
+      await withTimeout(
+        updateProfile(user, {
+          displayName: sanitizeInput(displayName || username),
+        }),
+        5000
+      );
 
-      // Store user data in Firestore
-      await setDoc(doc(db, 'users', user.uid), {
-        email,
-        username: sanitizeInput(username),
-        displayName: sanitizeInput(displayName || username),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        twoFAEnabled: false,
-        emailVerified: false,
-        authProvider: 'email',
-      });
+      // Store user data in Firestore with timeout
+      await withTimeout(
+        setDoc(doc(db, 'users', user.uid), {
+          email,
+          username: sanitizeInput(username),
+          displayName: sanitizeInput(displayName || username),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          twoFAEnabled: false,
+          emailVerified: false,
+          authProvider: 'email',
+        }),
+        5000
+      );
 
       setSuccess(true);
       setLockoutTime(null);
@@ -103,6 +122,8 @@ export function SignupForm() {
         setError('Network error. Check your Firebase credentials in .env.local');
       } else if (err.code === 'auth/invalid-api-key') {
         setError('Invalid Firebase API key. Please check your .env.local');
+      } else if (err.message && err.message.includes('timed out')) {
+        setError('Firebase request timed out. Check your Firebase credentials in .env.local');
       } else {
         console.error('Signup error:', err);
         setError(err.message || ERROR_MESSAGES.network.error);
