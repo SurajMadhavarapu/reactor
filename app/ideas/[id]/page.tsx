@@ -11,6 +11,7 @@ import {
   removeUpvote,
   updateIdeaProgress,
   updateCollaboratorRole,
+  listenToComments,
 } from '@/app/utils/firebaseUtils';
 import { DashboardLayout } from '@/app/components/DashboardLayout';
 import { PinVerification } from '@/app/components/PinVerification';
@@ -64,7 +65,20 @@ export default function IdeaDetailPage() {
     }
 
     if (user && ideaId) {
-      loadIdea();
+      let unsubscribe: (() => void) | void;
+      
+      const loadAndListen = async () => {
+        unsubscribe = await loadIdea();
+      };
+      
+      loadAndListen();
+      
+      // Cleanup listener when component unmounts or dependencies change
+      return () => {
+        if (unsubscribe && typeof unsubscribe === 'function') {
+          unsubscribe();
+        }
+      };
     }
   }, [user, authLoading, router, ideaId]);
 
@@ -87,8 +101,14 @@ export default function IdeaDetailPage() {
       
       if (isOwner || userVerified) {
         setPinVerified(true);
-        const fetchedComments = await getComments(ideaId);
-        setComments(fetchedComments as Comment[]);
+        // Set up real-time listener for comments instead of one-time fetch
+        const unsubscribe = listenToComments(ideaId, setComments, (error) => {
+          console.error('Error in comments listener:', error);
+          setError('Failed to sync updates');
+        });
+        
+        // Return unsubscribe function to cleanup
+        return unsubscribe;
       }
     } catch (err: any) {
       console.error('Error loading idea:', err);

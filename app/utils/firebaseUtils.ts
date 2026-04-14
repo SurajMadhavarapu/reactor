@@ -13,6 +13,8 @@ import {
   increment,
   arrayUnion,
   arrayRemove,
+  onSnapshot,
+  orderBy,
 } from 'firebase/firestore';
 import { Idea, Comment, Collaborator } from '@/app/types';
 
@@ -297,6 +299,30 @@ export async function updateCollaboratorRole(ideaId: string, userId: string, new
     return true;
   } catch (error) {
     console.error('Error updating collaborator role:', error);
+    throw error;
+  }
+}
+
+// LISTEN TO COMMENTS IN REAL-TIME
+export function listenToComments(ideaId: string, callback: (comments: any[]) => void, onError?: (error: Error) => void) {
+  try {
+    const commentsRef = collection(db, 'ideas', ideaId, 'comments');
+    const q = query(commentsRef, orderBy('createdAt', 'asc'));
+    
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const comments = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      callback(comments as any[]);
+    }, (error) => {
+      console.error('Error listening to comments:', error);
+      if (onError) onError(error);
+    });
+
+    return unsubscribe;
+  } catch (error) {
+    console.error('Error setting up comments listener:', error);
     throw error;
   }
 }
