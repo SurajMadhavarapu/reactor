@@ -89,13 +89,22 @@ export function SignupForm() {
 
       setSuccess(true);
       setLockoutTime(null);
+      
+      // Wait for auth state to update in AuthContext before redirecting
+      // This ensures the user is fully authenticated before navigating to dashboard
       setTimeout(() => {
         window.location.href = '/dashboard';
-      }, 500);
+      }, 1000);
     } catch (err: any) {
+      setLoading(false);
       if (err.code === 'auth/email-already-in-use') {
         setError(ERROR_MESSAGES.auth.emailExists);
+      } else if (err.code === 'auth/network-request-failed') {
+        setError('Network error. Check your Firebase credentials in .env.local');
+      } else if (err.code === 'auth/invalid-api-key') {
+        setError('Invalid Firebase API key. Please check your .env.local');
       } else {
+        console.error('Signup error:', err);
         setError(err.message || ERROR_MESSAGES.network.error);
       }
     } finally {
