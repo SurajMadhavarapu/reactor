@@ -34,7 +34,7 @@ export async function GET(request) {
 
   if (!accessToken) {
     return NextResponse.json(
-      { isPlaying: false, currentTrack: null },
+      { isPlaying: false, currentTrack: null, authenticated: false },
       { status: 200 }
     );
   }
@@ -60,7 +60,7 @@ export async function GET(request) {
 
     if (response.status === 204 || !response.ok) {
       return NextResponse.json(
-        { isPlaying: false, currentTrack: null },
+        { isPlaying: false, currentTrack: null, authenticated: true },
         { status: 200 }
       );
     }
@@ -69,7 +69,7 @@ export async function GET(request) {
 
     if (!data.item) {
       return NextResponse.json(
-        { isPlaying: false, currentTrack: null },
+        { isPlaying: false, currentTrack: null, authenticated: true },
         { status: 200 }
       );
     }
@@ -87,6 +87,7 @@ export async function GET(request) {
     const res = NextResponse.json({
       isPlaying: data.is_playing,
       currentTrack,
+      authenticated: true,
     });
 
     if (accessToken) {
@@ -102,7 +103,7 @@ export async function GET(request) {
   } catch (error) {
     console.error('Now playing error:', error);
     return NextResponse.json(
-      { isPlaying: false, currentTrack: null },
+      { isPlaying: false, currentTrack: null, authenticated: false },
       { status: 200 }
     );
   }

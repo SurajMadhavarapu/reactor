@@ -69,17 +69,22 @@ export function Tuned() {
   useEffect(() => {
     const fetchNowPlaying = async () => {
       try {
-        const response = await fetch('/api/now-playing');
+        const response = await fetch('/api/now-playing', {
+          credentials: 'include',
+        });
         const data = await response.json();
+        
+        console.log('Spotify data:', data); // Debug logging
         
         if (data.error) {
           setError(data.error);
           setIsAuthenticated(false);
-        } else if (data.currentTrack || data.isPlaying) {
-          setIsAuthenticated(true);
+        } else if (data.authenticated === false) {
+          // API explicitly says not authenticated
+          setIsAuthenticated(false);
           setError(null);
-        } else if (!data.error) {
-          // No error but no current track - might just not be playing
+        } else if (data.authenticated === true) {
+          // API says authenticated
           setIsAuthenticated(true);
           setError(null);
         }
@@ -88,17 +93,25 @@ export function Tuned() {
       } catch (err) {
         console.error('Error fetching now playing:', err);
         setError('Failed to fetch track data');
+        setIsAuthenticated(false);
       } finally {
         setLoading(false);
       }
     };
 
     fetchNowPlaying();
+    
+    // Also refetch after a short delay to catch any race conditions with cookie setting
+    const delayedRefetch = setTimeout(() => {
+      fetchNowPlaying();
+    }, 500);
+    
     const interval = setInterval(fetchNowPlaying, 30000);
     
     // Refetch immediately when page becomes visible (e.g., after OAuth redirect)
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
+        console.log('Page became visible, refetching Spotify data');
         fetchNowPlaying();
       }
     };
@@ -106,6 +119,7 @@ export function Tuned() {
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
+      clearTimeout(delayedRefetch);
       clearInterval(interval);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };

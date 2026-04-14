@@ -5,8 +5,15 @@ export async function GET(request) {
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 
+  console.log('=== SPOTIFY AUTH DEBUG ===');
+  console.log('Client ID set:', !!clientId);
+  console.log('Redirect URI set:', !!redirectUri);
+  console.log('Client ID value:', clientId);
+  console.log('Redirect URI value:', redirectUri);
+
   // Validate required environment variables
   if (!clientId || !redirectUri) {
+    console.log('Missing config - returning error');
     return NextResponse.json(
       {
         error: 'Missing Spotify configuration',
@@ -35,6 +42,8 @@ export async function GET(request) {
   authUrl.searchParams.append('scope', scopes.join(' '));
   authUrl.searchParams.append('state', state);
 
+  console.log('Auth URL:', authUrl.toString());
+
   const response = NextResponse.redirect(authUrl);
   response.cookies.set('spotify_auth_state', state, {
     httpOnly: true,
@@ -42,5 +51,6 @@ export async function GET(request) {
     sameSite: 'lax',
   });
 
+  console.log('Redirecting to Spotify...');
   return response;
 }
