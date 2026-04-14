@@ -455,11 +455,11 @@ export default function IdeaDetailPage() {
                         {isOwner ? (
                           editingRoleFor === collab.userId ? (
                             // Custom role input mode
-                            <div className="flex gap-1 items-center">
+                            <div className="flex gap-1 items-center w-48">
                               <input
                                 type="text"
                                 placeholder="e.g., Designer"
-                                value={customRoleInput}
+                                defaultValue={collab.role}
                                 onChange={(e) => setCustomRoleInput(e.target.value)}
                                 onKeyPress={(e) => {
                                   if (e.key === 'Enter') {
@@ -504,33 +504,31 @@ export default function IdeaDetailPage() {
                             </div>
                           ) : (
                             // Dropdown mode
-                            <div className="flex gap-1 items-center">
-                              <select
-                                value={collab.role}
-                                onChange={(e) => {
-                                  if (e.target.value === 'custom') {
-                                    setEditingRoleFor(collab.userId);
-                                    setCustomRoleInput(collab.role);
-                                  } else {
-                                    handleRoleUpdate(collab.userId, e.target.value);
-                                  }
-                                }}
-                                disabled={updatingRole === collab.userId}
-                                className="text-xs px-2 py-1 rounded font-medium focus:outline-none transition"
-                                style={{
-                                  background: `${THEME.colors.gold}40`,
-                                  color: THEME.colors.navy,
-                                  border: `1px solid ${THEME.colors.gold}`,
-                                  opacity: updatingRole === collab.userId ? 0.6 : 1,
-                                  cursor: updatingRole === collab.userId ? 'not-allowed' : 'pointer',
-                                }}
-                              >
-                                <option value="owner">Owner</option>
-                                <option value="collaborator">Collaborator</option>
-                                <option value="viewer">Viewer</option>
-                                <option value="custom">Custom Role...</option>
-                              </select>
-                            </div>
+                            <select
+                              value={collab.role}
+                              onChange={(e) => {
+                                if (e.target.value === 'custom') {
+                                  setEditingRoleFor(collab.userId);
+                                  setCustomRoleInput(collab.role);
+                                } else {
+                                  handleRoleUpdate(collab.userId, e.target.value);
+                                }
+                              }}
+                              disabled={updatingRole === collab.userId}
+                              className="text-xs px-2 py-1 rounded font-medium focus:outline-none transition"
+                              style={{
+                                background: `${THEME.colors.gold}40`,
+                                color: THEME.colors.navy,
+                                border: `1px solid ${THEME.colors.gold}`,
+                                opacity: updatingRole === collab.userId ? 0.6 : 1,
+                                cursor: updatingRole === collab.userId ? 'not-allowed' : 'pointer',
+                              }}
+                            >
+                              <option value="owner">Owner</option>
+                              <option value="collaborator">Collaborator</option>
+                              <option value="viewer">Viewer</option>
+                              <option value="custom">Custom Role...</option>
+                            </select>
                           )
                         ) : (
                           <span
