@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, connectAuthEmulator } from 'firebase/auth';
+import { getAuth, connectAuthEmulator, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -14,6 +14,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Enable persistent session across browser closes
+setPersistence(auth, browserLocalPersistence).catch((error) => {
+  console.warn('Failed to set persistence:', error);
+});
 
 // Use emulator in development if explicitly enabled
 if (process.env.NEXT_PUBLIC_USE_EMULATOR === 'true') {
