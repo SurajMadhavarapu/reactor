@@ -12,6 +12,7 @@ import {
   updateIdeaProgress,
   updateCollaboratorRole,
   listenToComments,
+  removeCollaborator,
 } from '@/app/utils/firebaseUtils';
 import { DashboardLayout } from '@/app/components/DashboardLayout';
 import { PinVerification } from '@/app/components/PinVerification';
@@ -193,6 +194,20 @@ export default function IdeaDetailPage() {
       setError(err.message || 'Failed to update role');
     } finally {
       setUpdatingRole(null);
+    }
+  };
+
+  const handleLeaveIdea = async () => {
+    if (!user || !idea) return;
+
+    const confirmLeave = window.confirm('Are you sure you want to leave this idea? You can rejoin with the PIN.');
+    if (!confirmLeave) return;
+
+    try {
+      await removeCollaborator(ideaId, user.uid);
+      router.push('/ideas');
+    } catch (err: any) {
+      setError(err.message || 'Failed to leave idea');
     }
   };
 
@@ -452,6 +467,21 @@ export default function IdeaDetailPage() {
                     </p>
                   )}
                 </div>
+                
+                {/* Leave Idea Button (Non-Owners Only) */}
+                {!isOwner && (
+                  <motion.button
+                    onClick={handleLeaveIdea}
+                    whileHover={{ scale: 1.05 }}
+                    className="w-full py-2 rounded-lg font-semibold text-sm transition"
+                    style={{
+                      backgroundColor: `${THEME.colors.burgundy}`,
+                      color: THEME.colors.cream,
+                    }}
+                  >
+                    Leave Idea
+                  </motion.button>
+                )}
               </div>
 
               {/* PIN Card (Owner Only) */}

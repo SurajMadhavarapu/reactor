@@ -303,6 +303,34 @@ export async function updateCollaboratorRole(ideaId: string, userId: string, new
   }
 }
 
+// REMOVE COLLABORATOR (LEAVE IDEA)
+export async function removeCollaborator(ideaId: string, userId: string) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    const snapshot = await getDoc(ideaRef);
+    
+    if (!snapshot.exists()) {
+      throw new Error('Idea not found');
+    }
+
+    const idea = snapshot.data();
+    const collaborators = idea.collaborators || [];
+    
+    // Filter out the user
+    const updatedCollaborators = collaborators.filter((collab: any) => collab.userId !== userId);
+
+    await updateDoc(ideaRef, {
+      collaborators: updatedCollaborators,
+      [`pinVerified.${userId}`]: false,
+    });
+
+    return true;
+  } catch (error) {
+    console.error('Error removing collaborator:', error);
+    throw error;
+  }
+}
+
 // LISTEN TO COMMENTS IN REAL-TIME
 export function listenToComments(ideaId: string, callback: (comments: any[]) => void, onError?: (error: Error) => void) {
   try {
