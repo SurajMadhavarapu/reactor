@@ -125,10 +125,9 @@ export function Tuned() {
     };
   }, []);
 
-  const handleConnect = () => {
+  const handleConnect = (e: React.MouseEvent<HTMLAnchorElement>) => {
     // Store the current URL so callback can redirect back
     document.cookie = `spotify_return_url=${window.location.href}; path=/; max-age=600`;
-    window.location.href = '/api/auth/spotify';
   };
 
   if (loading) {
@@ -173,9 +172,10 @@ export function Tuned() {
         <p style={{ color: THEME.colors.charcoal }} className="text-xs mb-4 opacity-80">
           Connect your Spotify to see what you're vibing to
         </p>
-        <button
+        <a
+          href="/api/auth/spotify"
           onClick={handleConnect}
-          className="w-full py-2 px-3 rounded-lg text-sm font-medium transition"
+          className="block w-full py-2 px-3 rounded-lg text-sm font-medium transition text-center no-underline"
           style={{
             background: THEME.gradients.button,
             color: THEME.colors.cream,
@@ -183,7 +183,7 @@ export function Tuned() {
           }}
         >
           Connect Spotify
-        </button>
+        </a>
       </div>
     );
   }
