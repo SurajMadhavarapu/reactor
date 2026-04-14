@@ -15,7 +15,7 @@ import {
 } from '@/app/utils/firebaseUtils';
 import { DashboardLayout } from '@/app/components/DashboardLayout';
 import { PinVerification } from '@/app/components/PinVerification';
-import { NowPlaying } from '@/app/components/NowPlaying';
+import { Tuned } from '@/app/components/Tuned';
 import { THEME, PROGRESS_STAGES, ERROR_MESSAGES, VALIDATION } from '@/app/utils/constants';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -412,8 +412,8 @@ export default function IdeaDetailPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
             >
-              {/* Now Playing Widget */}
-              <NowPlaying />
+              {/* Tuned - Now Playing Widget */}
+              <Tuned />
 
               {/* Collaborators Card */}
               <div
