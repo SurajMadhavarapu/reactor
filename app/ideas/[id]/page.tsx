@@ -55,7 +55,6 @@ export default function IdeaDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [commentError, setCommentError] = useState('');
-  const [musicMood, setMusicMood] = useState('');
   const [pinVerified, setPinVerified] = useState(false);
   const [updatingRole, setUpdatingRole] = useState<string | null>(null);
   const [editingRoleFor, setEditingRoleFor] = useState<string | null>(null);
@@ -415,48 +414,6 @@ export default function IdeaDetailPage() {
             >
               {/* Now Playing Widget */}
               <NowPlaying />
-
-              {/* Pulse - Music Mood Card */}
-              <div
-                className="p-6 rounded-xl backdrop-blur-sm"
-                style={{
-                  background: THEME.gradients.card,
-                  border: `2px solid ${THEME.colors.gold}`,
-                  boxShadow: THEME.shadows.goldShadow,
-                }}
-              >
-                <h3 style={{ color: THEME.colors.navy }} className="text-sm font-serif font-bold mb-4">
-                  ❤️ PULSE - VIBE
-                </h3>
-                <p style={{ color: THEME.colors.charcoal }} className="text-xs mb-4 opacity-80">
-                  What music are you working to?
-                </p>
-                <div className="space-y-2 mb-4">
-                  {['🎵 Spotify', '🎵 YouTube Music', '🎵 Apple Music'].map((platform) => (
-                    <button
-                      key={platform}
-                      onClick={() => setMusicMood(platform)}
-                      className="w-full py-2 px-3 rounded-lg text-sm font-medium transition"
-                      style={{
-                        background:
-                          musicMood === platform
-                            ? THEME.gradients.button
-                            : `${THEME.colors.gold}20`,
-                        color: THEME.colors.cream,
-                        opacity: musicMood === platform ? 1 : 0.7,
-                        border: `1px solid ${musicMood === platform ? THEME.colors.gold : 'transparent'}`,
-                      }}
-                    >
-                      {platform}
-                    </button>
-                  ))}
-                </div>
-                {musicMood && (
-                  <p style={{ color: THEME.colors.navy }} className="text-xs font-medium">
-                    Vibing with: <span style={{ color: THEME.colors.gold }}>{musicMood}</span>
-                  </p>
-                )}
-              </div>
 
               {/* Collaborators Card */}
               <div
