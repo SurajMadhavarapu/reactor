@@ -72,6 +72,12 @@ export default function IdeaDetailPage() {
     try {
       setLoading(true);
       const fetchedIdea = await getIdeaById(ideaId);
+      
+      // Ensure collaborators array exists
+      if (!fetchedIdea.collaborators) {
+        fetchedIdea.collaborators = [];
+      }
+      
       setIdea(fetchedIdea);
       setIsUpvoted(user ? fetchedIdea.upvoters?.includes(user.uid) : false);
 
@@ -85,6 +91,7 @@ export default function IdeaDetailPage() {
         setComments(fetchedComments as Comment[]);
       }
     } catch (err: any) {
+      console.error('Error loading idea:', err);
       setError(err.message || ERROR_MESSAGES.network.error);
     } finally {
       setLoading(false);
@@ -379,45 +386,51 @@ export default function IdeaDetailPage() {
                 }}
               >
                 <h3 style={{ color: THEME.colors.navy }} className="text-sm font-serif font-bold mb-4">
-                  COLLABORATORS ({idea.collaborators.length})
+                  COLLABORATORS ({idea.collaborators?.length || 0})
                 </h3>
                 <div className="space-y-3">
-                  {idea.collaborators.map((collab) => (
-                    <div key={collab.userId} className="flex items-center justify-between gap-2">
-                      <span style={{ color: THEME.colors.charcoal }} className="text-sm truncate flex-1">
-                        {collab.username}
-                      </span>
-                      {isOwner ? (
-                        <select
-                          value={collab.role}
-                          onChange={(e) => handleRoleUpdate(collab.userId, e.target.value)}
-                          disabled={updatingRole === collab.userId}
-                          className="text-xs px-2 py-1 rounded font-medium focus:outline-none transition"
-                          style={{
-                            background: `${THEME.colors.gold}40`,
-                            color: THEME.colors.navy,
-                            border: `1px solid ${THEME.colors.gold}`,
-                            opacity: updatingRole === collab.userId ? 0.6 : 1,
-                            cursor: updatingRole === collab.userId ? 'not-allowed' : 'pointer',
-                          }}
-                        >
-                          <option value="owner">Owner</option>
-                          <option value="collaborator">Collaborator</option>
-                          <option value="viewer">Viewer</option>
-                        </select>
-                      ) : (
-                        <span
-                          className="text-xs px-2 py-1 rounded font-medium"
-                          style={{
-                            background: `${THEME.colors.gold}40`,
-                            color: THEME.colors.navy,
-                          }}
-                        >
-                          {collab.role}
+                  {idea.collaborators && idea.collaborators.length > 0 ? (
+                    idea.collaborators.map((collab) => (
+                      <div key={collab.userId} className="flex items-center justify-between gap-2">
+                        <span style={{ color: THEME.colors.charcoal }} className="text-sm truncate flex-1">
+                          {collab.username}
                         </span>
-                      )}
-                    </div>
-                  ))}
+                        {isOwner ? (
+                          <select
+                            value={collab.role}
+                            onChange={(e) => handleRoleUpdate(collab.userId, e.target.value)}
+                            disabled={updatingRole === collab.userId}
+                            className="text-xs px-2 py-1 rounded font-medium focus:outline-none transition"
+                            style={{
+                              background: `${THEME.colors.gold}40`,
+                              color: THEME.colors.navy,
+                              border: `1px solid ${THEME.colors.gold}`,
+                              opacity: updatingRole === collab.userId ? 0.6 : 1,
+                              cursor: updatingRole === collab.userId ? 'not-allowed' : 'pointer',
+                            }}
+                          >
+                            <option value="owner">Owner</option>
+                            <option value="collaborator">Collaborator</option>
+                            <option value="viewer">Viewer</option>
+                          </select>
+                        ) : (
+                          <span
+                            className="text-xs px-2 py-1 rounded font-medium"
+                            style={{
+                              background: `${THEME.colors.gold}40`,
+                              color: THEME.colors.navy,
+                            }}
+                          >
+                            {collab.role}
+                          </span>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <p style={{ color: THEME.colors.charcoal }} className="text-sm opacity-70">
+                      Only you have access to this idea
+                    </p>
+                  )}
                 </div>
               </div>
 
