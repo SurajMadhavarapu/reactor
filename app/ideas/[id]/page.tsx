@@ -13,6 +13,7 @@ import {
   updateCollaboratorRole,
   listenToComments,
   removeCollaborator,
+  listenToIdea,
 } from '@/app/utils/firebaseUtils';
 import { DashboardLayout } from '@/app/components/DashboardLayout';
 import { PinVerification } from '@/app/components/PinVerification';
@@ -66,58 +67,71 @@ export default function IdeaDetailPage() {
     }
 
     if (user && ideaId) {
-      let unsubscribe: (() => void) | void;
+      const unsubscribers: Array<() => void> = [];
       
       const loadAndListen = async () => {
-        unsubscribe = await loadIdea();
+        try {
+          // Initial load
+          const fetchedIdea = await getIdeaById(ideaId);
+          
+          // Ensure collaborators array exists
+          if (!fetchedIdea.collaborators) {
+            fetchedIdea.collaborators = [];
+          }
+          
+          setIdea(fetchedIdea);
+          setIsUpvoted(user ? fetchedIdea.upvoters?.includes(user.uid) : false);
+
+          // Check if user has PIN verified or is owner
+          const isOwner = user?.uid === fetchedIdea.ownerId;
+          const userVerified = fetchedIdea.pinVerified?.[user?.uid || ''] || false;
+          
+          if (isOwner || userVerified) {
+            setPinVerified(true);
+            
+            // Set up real-time listener for idea changes (progress, description, upvotes, collaborators)
+            const ideaUnsubscribe = listenToIdea(ideaId, (updatedIdea) => {
+              setIdea(updatedIdea);
+              setIsUpvoted(user ? updatedIdea.upvoters?.includes(user.uid) : false);
+            }, (error) => {
+              console.error('Error in idea listener:', error);
+              setError('Failed to sync idea updates');
+            });
+            
+            if (ideaUnsubscribe) {
+              unsubscribers.push(ideaUnsubscribe);
+            }
+            
+            // Set up real-time listener for comments
+            const commentsUnsubscribe = listenToComments(ideaId, setComments, (error) => {
+              console.error('Error in comments listener:', error);
+              setError('Failed to sync updates');
+            });
+            
+            if (commentsUnsubscribe) {
+              unsubscribers.push(commentsUnsubscribe);
+            }
+          }
+          setLoading(false);
+        } catch (err: any) {
+          console.error('Error loading idea:', err);
+          setError(err.message || ERROR_MESSAGES.network.error);
+          setLoading(false);
+        }
       };
       
       loadAndListen();
       
-      // Cleanup listener when component unmounts or dependencies change
+      // Cleanup both listeners when component unmounts
       return () => {
-        if (unsubscribe && typeof unsubscribe === 'function') {
-          unsubscribe();
-        }
+        unsubscribers.forEach((unsub) => {
+          if (typeof unsub === 'function') {
+            unsub();
+          }
+        });
       };
     }
   }, [user, authLoading, router, ideaId]);
-
-  const loadIdea = async () => {
-    try {
-      setLoading(true);
-      const fetchedIdea = await getIdeaById(ideaId);
-      
-      // Ensure collaborators array exists
-      if (!fetchedIdea.collaborators) {
-        fetchedIdea.collaborators = [];
-      }
-      
-      setIdea(fetchedIdea);
-      setIsUpvoted(user ? fetchedIdea.upvoters?.includes(user.uid) : false);
-
-      // Check if user has PIN verified or is owner
-      const isOwner = user?.uid === fetchedIdea.ownerId;
-      const userVerified = fetchedIdea.pinVerified?.[user?.uid || ''] || false;
-      
-      if (isOwner || userVerified) {
-        setPinVerified(true);
-        // Set up real-time listener for comments instead of one-time fetch
-        const unsubscribe = listenToComments(ideaId, setComments, (error) => {
-          console.error('Error in comments listener:', error);
-          setError('Failed to sync updates');
-        });
-        
-        // Return unsubscribe function to cleanup
-        return unsubscribe;
-      }
-    } catch (err: any) {
-      console.error('Error loading idea:', err);
-      setError(err.message || ERROR_MESSAGES.network.error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleUpvote = async () => {
     if (!user || !idea) return;
@@ -154,7 +168,7 @@ export default function IdeaDetailPage() {
     try {
       await addComment(ideaId, user.uid, user.displayName || user.email || 'Anonymous', newComment);
       setNewComment('');
-      await loadIdea();
+      // Comments will update automatically via the real-time listener
     } catch (err: any) {
       setCommentError(err.message || ERROR_MESSAGES.network.error);
     }
@@ -256,7 +270,7 @@ export default function IdeaDetailPage() {
   // Check if PIN verification is needed
   const isOwner = user?.uid === idea.ownerId;
   if (!pinVerified && !isOwner) {
-    return <PinVerification ideaId={ideaId} userId={user?.uid || ''} userName={user?.displayName || user?.email || 'User'} onSuccess={() => { setPinVerified(true); loadIdea(); }} />;
+    return <PinVerification ideaId={ideaId} userId={user?.uid || ''} userName={user?.displayName || user?.email || 'User'} onSuccess={() => { setPinVerified(true); }} />;
   }
 
   const progressIndex = PROGRESS_STAGES.indexOf(idea.progress as any);
@@ -527,7 +541,7 @@ export default function IdeaDetailPage() {
             transition={{ delay: 0.3 }}
           >
             <h2 style={{ color: THEME.colors.navy }} className="text-xl font-serif font-bold mb-6">
-              Updates & Work Assignments ({comments.length})
+              Updates & Work Assignments
             </h2>
 
             {/* Chat Display - Messages */}

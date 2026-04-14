@@ -354,3 +354,28 @@ export function listenToComments(ideaId: string, callback: (comments: any[]) => 
     throw error;
   }
 }
+
+// LISTEN TO IDEA CHANGES IN REAL-TIME (progress, description, upvotes, collaborators)
+export function listenToIdea(ideaId: string, callback: (idea: any) => void, onError?: (error: Error) => void) {
+  try {
+    const ideaRef = doc(db, 'ideas', ideaId);
+    
+    const unsubscribe = onSnapshot(ideaRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const idea = {
+          id: snapshot.id,
+          ...snapshot.data(),
+        };
+        callback(idea);
+      }
+    }, (error) => {
+      console.error('Error listening to idea:', error);
+      if (onError) onError(error);
+    });
+    
+    return unsubscribe;
+  } catch (error) {
+    console.error('Error setting up idea listener:', error);
+    throw error;
+  }
+}
