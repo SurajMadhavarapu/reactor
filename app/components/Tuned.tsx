@@ -145,7 +145,7 @@ export function Tuned() {
     );
   }
 
-  if (!isAuthenticated || !track?.currentTrack) {
+  if (!isAuthenticated) {
     return (
       <div
         className="p-6 rounded-xl backdrop-blur-sm"
@@ -188,7 +188,7 @@ export function Tuned() {
     );
   }
 
-  const { currentTrack, isPlaying } = track;
+  const { currentTrack, isPlaying } = track || { currentTrack: null, isPlaying: false };
 
   return (
     <div
@@ -203,7 +203,7 @@ export function Tuned() {
         TUNED
       </h3>
 
-      {isPlaying ? (
+      {isPlaying && currentTrack ? (
         <div className="space-y-4">
           {currentTrack.albumArt && (
             <img
